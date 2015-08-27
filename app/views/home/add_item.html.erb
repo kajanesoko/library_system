@@ -11,8 +11,11 @@
 		<%= text_field_tag(:item_name) %>
 
 		<label for="item_category">Item Category</label>
-		<%= text_field_tag(:item_category) %>
+		<%#= text_field_tag(:item_category) %>
+		<%= select_tag(:item_category, options_for_select(['','Books','CDs/DVDs','Journals/Magazines'])) %>
 		<%= submit_tag("Add") %>
 	<% end %>
+
+
 </body>
 </html>

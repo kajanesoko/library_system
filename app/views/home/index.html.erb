@@ -31,17 +31,18 @@
 		<!-- Stock-->
 		<div class="row">
 			<div class="col">
-				<ul>
-					<li>
-						Books
-					</li>
-					<li>
-						CDs/DVDs
-					</li>
-					<li>
-						Journals
-					</li>
-				</ul>
+				<table>
+					<tr>
+						<th>Item Name</th>
+						<th>Item Category</th>
+					</tr>
+					<% @items.each do |item| %>
+						<tr>
+							<td><%= item.item_name %></td>
+							<td><%= item.item_category %></td>
+						</tr>
+					<% end %>
+				</table>
 			</div>
 			<div class="col">
 				<p>Item Description</p>

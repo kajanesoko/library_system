@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   def index
   	@time = Time.now
   	@date = Date.today
+    @items = Item.all
     
   end
 
@@ -17,7 +18,7 @@ class HomeController < ApplicationController
       @item.item_category = params[:item_category]
       @item.save
     end
-    #@item = Item.create({:name => params[:item_name], :category => params[:item_category]})
+    
   end
 
   def view_item
