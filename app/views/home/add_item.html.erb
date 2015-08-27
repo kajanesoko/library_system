@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>Fill in the Details to add an Item</h1>
-	<%= form_tag(:action => 'add_item') do %>
+	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
 		<label for="item_name">Item Name</label>
 		<%= text_field_tag(:item_name) %>
 

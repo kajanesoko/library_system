@@ -10,7 +10,10 @@ class HomeController < ApplicationController
   end
 
   def add_item
-  	@item_id = Item.new(params[:item_id])
-  	#@item_category = Item.new(params[:item_category])
+  	@item = Item.new
+    @item.item_name = params[:item_name]
+    @item.item_category = params[:item_category]
+    @item.save
+    #@item = Item.create({:name => params[:item_name], :category => params[:item_category]})
   end
 end
