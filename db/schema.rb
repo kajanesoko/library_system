@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(version: 20150826135008) do
   end
 
   create_table "item", primary_key: "item_id", force: true do |t|
-    t.string "item_name",     null: false
-    t.string "item_category", null: false
+    t.string   "item_name",     null: false
+    t.string   "item_category", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "journals", primary_key: "item_id", force: true do |t|
@@ -58,11 +60,13 @@ ActiveRecord::Schema.define(version: 20150826135008) do
   end
 
   create_table "user", primary_key: "user_id", force: true do |t|
-    t.string "username",      null: false
-    t.string "firstname",     null: false
-    t.string "lastname",      null: false
-    t.text   "password_hash", null: false
-    t.string "user_role",     null: false
+    t.string   "username",      null: false
+    t.string   "firstname",     null: false
+    t.string   "lastname",      null: false
+    t.text     "password_hash", null: false
+    t.string   "user_role",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

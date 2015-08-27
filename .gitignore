@@ -55,3 +55,4 @@ build/
 .rvmrc
 *.lock
 *~
+db/schema.rb
