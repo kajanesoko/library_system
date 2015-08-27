@@ -13,5 +13,6 @@ class UserController < ApplicationController
 		end
     end
     session[:user_id] = nil
+    render :layout => 'login'
   end
 end
