@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150826135008) do
     t.datetime "updated_at"
   end
 
-  create_table "items", primary_key: "item_id", force: true do |t|
+  create_table "item", primary_key: "item_id", force: true do |t|
     t.string   "item_name",     null: false
     t.string   "item_category", null: false
     t.datetime "created_at"

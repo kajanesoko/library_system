@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  get 'home/add_item'
+
+  get 'home/logout'
+
   get 'home/index'
 
   get 'user/login'
   post 'user/login'
+  post 'home/add_item'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
