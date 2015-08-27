@@ -12,10 +12,19 @@
 		<p>Date: <%= @date %></p>
 		<p>Logged in as <%= @logged_user.username %></p>
 		<ul>
+
 			<%= link_to "logout", home_logout_path, 
 				:confirm => "Are you sure you want to Logout?"
 			%>
-			<%= link_to "Add Item", home_add_item_path %>
+
+			<% if @logged_user.user_role == 'Administrator' %>
+
+	      		<%= link_to "Add Item", home_add_item_path %>
+	      		<%= link_to "Add User", home_add_user_path %>
+
+      		<% end %>
+    
+
 		</ul>
 	</div>
 	<div>
