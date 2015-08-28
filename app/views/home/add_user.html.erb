@@ -5,10 +5,6 @@
 </head>
 <body>
 
-<%= link_to "Home", home_index_path %>
-<%= link_to "Add Item", home_add_item_path %>
-<%= link_to "Logout", home_logout_path %>
-
 	<h2>Add User Form</h2>
 
 	<%= form_for(:user, :url => {:controller => 'home', :action => 'add_user'}) do %>

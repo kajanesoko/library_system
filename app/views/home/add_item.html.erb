@@ -6,19 +6,49 @@
 </head>
 <body>
 
-<%= link_to "Home", home_index_path %>
-<%= link_to "Add User", home_add_user_path %>
-<%= link_to "Logout", home_logout_path %>
-
-	<h1>Fill in the Details to add an Item</h1>
+	<h2 class="page-header">Fill in the Details to add an Item</h2>
 	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
-		<label for="item_name">Item Name</label>
-		<%= text_field_tag(:item_name) %>
-
-		<label for="item_category">Item Category</label>
-		<%#= text_field_tag(:item_category) %>
-		<%= select_tag(:item_category, options_for_select(['','Books','CDs/DVDs','Journals/Magazines'])) %>
-		<%= submit_tag("Add") %>
+		<div class="form-group">
+			<%#= label_tag("Item Category") %>
+			<%= select_tag(:item_category, options_for_select([['Category',nil],'Books','CDs/DVDs','Journals/Magazines']), :class => "form-control") %>	
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Item Name") %>
+			<%= text_field_tag(:item_name, nil, :placeholder => "Item Name", :class => "form-control") %>		
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Author") %>
+			<%= text_field_tag(:author, nil, :placeholder => "Author", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Publisher") %>
+			<%= text_field_tag(:publisher, nil, :placeholder => "Publisher", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Year") %>
+			<%= text_field_tag(:year, nil, :placeholder => "Year", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Edition") %>
+			<%= text_field_tag(:edition, nil, :placeholder => "Edition", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Description") %>
+			<%= text_field_tag(:description, nil, :placeholder => "Description", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Serial") %>
+			<%= text_field_tag(:serial, nil, :placeholder => "Serial", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Void") %>
+			<%= text_field_tag(:void, nil, :placeholder => "Void", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Void Reason") %>
+			<%= text_area_tag(:void_reason, nil, :placeholder => "Void Reason", :class => "form-control") %>
+		</div>
+		<%= submit_tag("Add Item", :class => "btn btn-success") %>
 	<% end %>
 
 

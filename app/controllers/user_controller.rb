@@ -3,7 +3,7 @@ class UserController < ApplicationController
   
     if request.post?
     	user = User.where(:username => params[:username]).first
-	
+		
 		unless user.blank?
 			if user.password_hash == params[:password]
 			
