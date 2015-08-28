@@ -11,25 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826135008) do
+ActiveRecord::Schema.define(version: 20150828074944) do
 
-  create_table "books", primary_key: "item_id", force: true do |t|
-    t.string   "book_authour",        null: false
-    t.integer  "year_of_publication", null: false
-    t.text     "version",             null: false
-    t.string   "publisher",           null: false
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "cd_dvds", primary_key: "item_id", force: true do |t|
-    t.string   "cd_publisher", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "issues", primary_key: "issue_id", force: true do |t|
+  create_table "issue", primary_key: "issue_id", force: true do |t|
     t.integer  "user_id",        null: false
     t.integer  "item_id",        null: false
     t.date     "date_of_issue",  null: false
@@ -39,22 +23,23 @@ ActiveRecord::Schema.define(version: 20150826135008) do
   end
 
   create_table "item", primary_key: "item_id", force: true do |t|
-    t.string   "item_name",     null: false
-    t.string   "item_category", null: false
+    t.string   "item_name",                        null: false
+    t.integer  "item_category_id",                 null: false
+    t.string   "author"
+    t.string   "publisher"
+    t.integer  "year"
+    t.string   "edition"
+    t.string   "description"
+    t.string   "serial"
+    t.boolean  "void",             default: false, null: false
+    t.string   "void_reason"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "journals", primary_key: "item_id", force: true do |t|
-    t.string   "publisher",  null: false
-    t.string   "author",     null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "laptops", force: true do |t|
-    t.string   "name"
-    t.string   "serial_number"
+  create_table "item_category", primary_key: "item_category_id", force: true do |t|
+    t.string   "name",            null: false
+    t.string   "cat_description", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
