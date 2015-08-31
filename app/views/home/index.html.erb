@@ -36,6 +36,8 @@
 									<td><%= item.edition %></td>
 									<% if @logged_user.user_role == 'Administrator' %>
 										<td>Am admin</td>
+										<% else %>
+										<td> Am staff</td>
 						      		<% end %>
 								</tr>
 							<% end %>
