@@ -35,11 +35,11 @@
 
 </head>
 
-<body>
-    
+<body background="../../../assets/brownbg.jpg" style="background-repeat: no-repeat; background-attachment: fixed">
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div class="container" >
             <!-- Brand and toggle get grouped for better mobile display -->
             <div classs="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 navbar-header">
@@ -62,21 +62,35 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="background-color: #ffffff">
         <div class="row">
-        	<div class="col-lg-3 col-md-3 col-sm-3 dropdown"> <!-- Not finished -->
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="userMenu">
-                        Logged in as <%= @logged_user.username %> <span class="caret"></span>
+            <div class="col-lg-12">
+                <div class="btn-group">
+                    <button type="button" data-toggle="dropdown" class="dropdown-toggle">
+                        Menu
                     </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="userMenu">
-                        <li role="presentation">
-                            <a role="menuitem" tab-index="-1" href="#">Profile</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">logout</li>
+                    </ul>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+        	<div class="dropdown"> <!-- Not finished -->
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">
+                        Logged in as <%= @logged_user.username %> 
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li>
+                            <a href="#">Profile</a>
                         </li>
-                        <li role="presentation">
-                            <a role="menuitem" tab-index="-1" href="#">Settings</a>
+                        <li>
+                            <a href="#">Settings</a>
                         </li>
-                        <li role="presentation">
-                            <a role="menuitem" tab-index="-1" href="#">
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-logout"></span>
                                 <%= link_to "logout", home_logout_path, :confirm => "Are you sure you want to Logout?" %>
                             </a>
                         </li>
@@ -84,19 +98,26 @@
         	</div>
         	<div class="col-lg-3 col-md-3 col-sm-3 pull-right">
         		<p>Date: <%= @date %></p>
+                <span class="glyphicon glyphicon-log-out"></span> <%= link_to "logout", home_logout_path, :confirm => "Are you sure you want to Logout?" %>
         	</div>        	
         </div>
         <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-12 text-center">
-			<% if @logged_user.user_role == 'Administrator' %>
-				<%= link_to "Home", home_index_path %>
-	      		<%= link_to "Add Item", home_add_item_path %>
-	      		<%= link_to "Add User", home_add_user_path %>
-
-      		<% end %>
-            </div>
-        </div>
+        <% if @logged_user.user_role == 'Administrator' %>
+            <nav class="navbar navbar-default">			
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        
+                        <%= link_to "Home", home_index_path, :class => "glyphicon glyphicon-home" %>
+                    </li>
+                    <li>
+                        <%= link_to "Add Item", home_add_item_path, :class => "glyphicon glyphicon-plus" %>
+                    </li>
+                    <li>
+                        <%= link_to "Add User", home_add_user_path, :class => "glyphicon glyphicon-plus" %>
+                    </li>
+                </ul>   				
+            </nav>
+        <% end %>
         <!-- /.row -->
         <%= yield %>
 
@@ -104,7 +125,6 @@
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
-    <%= javascript_include_tag "bootstrap/jquery" %>
 
     <!-- Bootstrap Core JavaScript -->
     <%= javascript_include_tag "bootstrap/bootstrap.min" %>
