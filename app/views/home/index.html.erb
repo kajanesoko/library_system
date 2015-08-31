@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Library Management System</title>
-</head>
-<body>
+
 	<div>
 		<!-- Items-->
 		<div class="row">
@@ -14,38 +9,59 @@
 					<li><a href="#journals" data-toggle="tab">Journals</a></li>
 					<li><a href="#laptops" data-toggle="tab">Laptops</a></li>
 				</ul>
-				<table>
-					<tr>
-						<th>Item Name</th>
-						<th>Item Category</th>
-						<th>Item Description</th>
-					</tr>
-					<% @items.each do |item| %>
-						<tr>
-							<td><%= item.item_name %></td>
-							<td><%= item.item_category %></td>
-						</tr>
-					<% end %>
-				</table>
 			</div>
 		</div>
 
 		<!-- Category i -->
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="books">
-				<p>Hello Books</p>
+				<div class="table-responsive">
+					<table class="table">
+						<caption>
+							Item Table
+						</caption>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Author</th>
+								<th>Edition</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @items.where(:item_category_id => 1).each do |item| %>
+								<tr>
+									<td><%= item.item_name %></td>
+									<td><%= item.author %></td>
+									<td><%= item.edition %></td>
+									<% if @logged_user.user_role == 'Administrator' %>
+										<td>Am admin</td>
+						      		<% end %>
+								</tr>
+							<% end %>
+						</tbody>						
+					</table>					
+				</div>
+
 			</div>
 			<div class="tab-pane fade" id="cds">
-				<p>Hello CDs/DVDs</p>
+				<% @items.where(:item_category_id => 2).each do |item| %>
+					<tr>
+						<td><%= item.item_name %></td>
+						<td><%= item.item_category_id %></td>
+					</tr>
+				<% end %>
 			</div>
 			<div class="tab-pane fade" id="journals">
-				<p>Hello Journals</p>
+				<% @items.where(:item_category_id => 3).each do |item| %>
+					<tr>
+						<td><%= item.item_name %></td>
+						<td><%= item.item_category_id %></td>
+					</tr>
+				<% end %>
 			</div>
 			<div class="tab-pane fade" id="laptops">
 				<p>Hello Laptops</p>
 			</div>
 		</div>
 	</div>
-
-</body>
-</html>

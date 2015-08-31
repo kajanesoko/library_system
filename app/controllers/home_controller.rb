@@ -15,7 +15,15 @@ class HomeController < ApplicationController
     if request.post?
     	@item = Item.new
       @item.item_name = params[:item_name]
-      @item.item_category = params[:item_category]
+      @item.item_category_id = params[:item_category_id]
+      @item.author = params[:author]
+      @item.publisher = params[:publisher]
+      @item.year = params[:year]
+      @item.edition = params[:edition]
+      @item.description = params[:description]
+      @item.serial = params[:serial]
+      #@item.void = params[:void] //for Void Controls
+      #@item.void_reason = params[:void_reason] //for Void Reaon Control.
       @item.save
     end
     
