@@ -41,8 +41,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container" >
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div classs="row">
-                <div class="col-lg-3 col-md-3 col-sm-3 navbar-header">
+                <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -51,11 +50,11 @@
                     </button>
                     <a class="navbar-brand" href="#">Library Management System</a>
                 </div>
-                <!-- Search Bar -->
+                <!-- Initial Search 
                 <div class="col-lg-3 col-md-3 col-sm-3 collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                     <input type="text" placeholder="Search" />
                 </div>
-            </div>
+                -->
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -63,40 +62,36 @@
 
     <!-- Page Content -->
     <div class="container" style="background-color: #ffffff">
+        <br>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="btn-group">
-                    <button type="button" data-toggle="dropdown" class="dropdown-toggle">
-                        Menu
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">logout</li>
-                    </ul>
-                </div>
-            </div>            
-        </div>
-        <div class="row">
-        	<div class="dropdown"> <!-- Not finished -->
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">
-                        Logged in as <%= @logged_user.username %> 
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <a href="#">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-logout"></span>
-                                <%= link_to "logout", home_logout_path, :confirm => "Are you sure you want to Logout?" %>
-                            </a>
-                        </li>
-                    </ul>       		
-        	</div>
-        	<div class="col-lg-3 col-md-3 col-sm-3 pull-right">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+            	<div class="dropdown"> <!-- Not finished -->
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">
+                            Logged in as <%= @logged_user.username %> 
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <a href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-logout"></span>
+                                    <%= link_to "logout", home_logout_path, :confirm => "Are you sure you want to Logout?" %>
+                                </a>
+                            </li>
+                        </ul>       		
+            	</div>
+            </div>        
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <form class="form-search">
+                    <input type="text" class="form-control input-medium search-query" placeholder="Search" />                    
+                </form>
+            </div>
+        	<div class="col-lg-3 col-md-3 col-sm-3">
         		<p>Date: <%= @date %></p>
                 <span class="glyphicon glyphicon-log-out"></span> <%= link_to "logout", home_logout_path, :confirm => "Are you sure you want to Logout?" %>
         	</div>        	
@@ -125,6 +120,7 @@
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
+    <%= javascript_include_tag "bootstrap/jquery" %>
 
     <!-- Bootstrap Core JavaScript -->
     <%= javascript_include_tag "bootstrap/bootstrap.min" %>

@@ -8,7 +8,11 @@ class HomeController < ApplicationController
   	@time = Time.now
   	@date = Date.today
     @items = Item.all
-    
+    @item_category = ItemCategory.all
+    @item_category.each do |item_list|
+      item_list.name 
+      item_list.item_category_id
+    end 
   end
 
   def add_item
@@ -30,7 +34,8 @@ class HomeController < ApplicationController
   end
 
   def view_item
-
+      category_id = params[:category_id]
+      @items = Item.find_by_item_category_id
   end
 
   def add_user
