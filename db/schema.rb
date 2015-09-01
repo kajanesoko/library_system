@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828074944) do
+ActiveRecord::Schema.define(version: 20150901140937) do
+
+  create_table "categories", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "issue", primary_key: "issue_id", force: true do |t|
     t.integer  "user_id",        null: false

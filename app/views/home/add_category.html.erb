@@ -1,0 +1,28 @@
+
+
+	<h2 class="page-header">Fill in the Details to add an Item Category</h2>
+	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_category'}) do %>
+		
+		<div class="form-group">
+			<%#= label_tag("Publisher") %>
+			<%= text_field_tag(:name, nil, :placeholder => "Name", :class => "form-control") %>
+		</div>
+		
+		<div class="form-group">
+			<%#= label_tag("Edition") %>
+			<%= text_field_tag(:cat_description, nil, :placeholder => "description", :class => "form-control") %>
+		</div>
+		
+		<!-- To be included in the Delete Action 
+		<div class="form-group">
+			<%#= label_tag("Void") %>
+			<%#= text_field_tag(:void, nil, :placeholder => "Void", :class => "form-control") %>
+		</div>
+		<div class="form-group">
+			<%#= label_tag("Void Reason") %>
+			<%#= text_area_tag(:void_reason, nil, :placeholder => "Void Reason", :class => "form-control") %>
+		</div>
+		-->
+		<%= submit_tag("Add Category", :class => "btn btn-success") %>
+	<% end %>
+

@@ -45,4 +45,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def add_category
+    if request.post?
+      @item_category = Category.new
+      @item_category.name = params[:name]
+      @item_category.cat_description = params[:cat_description]
+      
+      @item_category.save
+    end
+  end
+
 end

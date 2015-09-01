@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post 'home/add_user'
   get 'home/add_user'
 
+  post 'home/add_category'
+  get 'home/add_category'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
