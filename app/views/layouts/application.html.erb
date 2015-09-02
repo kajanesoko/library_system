@@ -14,7 +14,6 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   	<%= csrf_meta_tags %>
-
     <!-- Bootstrap Core CSS -->
     <%= stylesheet_link_tag "bootstrap/bootstrap.min" %>
 
@@ -48,23 +47,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Library Management System</a>
+                    <a class="navbar-brand" href="#"> <font size = 14 style=""> Library Management System </font> </a>
                 </div>
                 <!-- Initial Search -->
                 <div class="collapse navbar-collapse" id="collapseable_navigation">
-                    <% if @logged_user.user_role == 'Administrator' %>       
-                            <ul class="nav navbar-nav">
-                                <li>                        
-                                    <%= link_to "Home", home_index_path, class: "glyphicon glyphicon-home" %>
-                                </li>
-                                <li>
-                                    <%= link_to "Add Item", home_add_item_path, class: "glyphicon glyphicon-plus" %>
-                                </li>
-                                <li>
-                                    <%= link_to "Add User", home_add_user_path, class: "glyphicon glyphicon-plus" %>
-                                </li>
-                            </ul> 
-                    <% end %>
+                   
                 </div>
 
             <!-- /.navbar-collapse -->
@@ -110,7 +97,7 @@
                 <span class="glyphicon glyphicon-log-out"></span> <%= link_to "Quick Exit", home_logout_path, class: "btn btn-link" %>
         	</div>        	
         </div>
-<<<<<<< HEAD
+
         <!-- /.row -->
         <% if @logged_user.user_role == 'Administrator' %>
             <nav class="navbar navbar-default">			
@@ -131,9 +118,9 @@
                 </ul>   				
             </nav>
         <% end %>
-=======
+
         <hr>
->>>>>>> a3f3112cf0043bf4c63d1f8f5f13c88afe446fb4
+
         <!-- /.row -->
         <%= yield %>
 
