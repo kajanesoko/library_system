@@ -4,11 +4,16 @@ class HomeController < ApplicationController
   	redirect_to :action => 'index'
   end
 
+  public
+
   def index
   	@time = Time.now
   	@date = Date.today
-    @items = Item.all
-    
+    @items = Item.all.order(:item_category_id)
+    @item_category = ItemCategory.all
+    if request.post?
+      @items = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
+    end
   end
 
   def add_item
@@ -30,7 +35,7 @@ class HomeController < ApplicationController
   end
 
   def view_item
-
+      
   end
 
   def add_user

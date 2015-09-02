@@ -1,22 +1,23 @@
 
 	<div>
-		<!--
 		<div>
 			<ul class="nav nav-tabs">
-				<%# @item_category.each do |item_list| %>
+				<% @item_category.each do |item_list| %>
 					<li>
 						<a href="#item_category" data-toggle="tab">
-							<%#= item_list.name %>	
+							<%= form_tag :action => "index" do %>
+								<%= text_field_tag :item_category_id, params[:item_category_id], :value => item_list.item_category_id %>
+								<%= submit_tag item_list.name %>
+							<% end %>		
 						</a>
 					</li>
-				<%# end %>
+				<% end %>
 			</ul>
 		</div>
-		-->
 
 		<!-- Category i -->
 		<div class="tab-content">
-			<div class="tab-pane fade in active" id="item_category">
+			<div class="tab-pane fade in" id="item_category">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<!--
@@ -24,17 +25,17 @@
 							Item Table
 						</caption>
 						-->
-						<thead class="bg-info">
+						<thead>
 							<tr>
-								<th> Category</th>
-								<th><span class="glyphicon glyphicon-book"></span> Title</th>
-								<th><span class="glyphicon glyphicon-user"></span> Author</th>
-								<th> Edition</th>
+								<th><span class="glyphicon glyphicon-user"></span> Name</th>
+								<th>Category</th>
+								<th>Author</th>
+								<th>Edition</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<% @items.each do |item| %>
+							<% @items.where(:item_category_id => :category_id).each do |item| %>
 								<tr>
 
 									<td><%= item.item_category_id %></td>
