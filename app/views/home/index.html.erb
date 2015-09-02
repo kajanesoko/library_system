@@ -34,39 +34,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% @items.each do |item| %>
+							<% @items.where(:void => 0).each do |item| %>
 								<tr>
 
 									<td><%= item.item_category_id %></td>
 									<td><%= item.item_name %></td>
 									<td><%= item.author %></td>
 									<td><%= item.edition %></td>
-
-<div class="modal" id="void_reason" tabindex="-1" role="dialog" aria-labelledby="void_reason_label" aria-hidden="true" style="padding: 150px;">
-			<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times	</button>
-
-				  	<h4 class="modal-title" id="void_reason_label"> Void Reason</h4>
-				</div>
-
-				<div class="modal-body">
-				  <%= form_tag do %> 
-				  	<%= text_area_tag :void_reason, params[:void_params], :rows => 4, :cols => 60 %>
-				  <% end %>
-				  <%= item.item_category_id %>
-				</div>
-
-				<div class="modal-footer">
-					 <button type="button" class="btn btn-default" data-dismiss="modal"> Cancel </button>
-
-					 <button type="button" class="btn btn-danger"> Delete </button>
-
-				</div>
-			</div>
-		</div>
-	</div>
 									<% if @logged_user.user_role == 'Administrator' %>
 										<!-- Admin actions to an item-->
 
@@ -113,8 +87,33 @@
 	</div>
 
 	<!-- Void Reason Modal -->
+<!--
+<div class="modal" id="void_reason" tabindex="-1" role="dialog" aria-labelledby="void_reason_label" aria-hidden="true" style="padding: 150px;">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times	</button>
 
+				  	<h4 class="modal-title" id="void_reason_label"> Void Reason</h4>
+				</div>
 
+				<div class="modal-body">
+				  <%#= form_tag do %> 
+				  	<%#= text_area_tag :void_reason, params[:void_params], :rows => 4, :cols => 60 %>
+				  <%# end %>
+				  <%#= item.item_category_id %>
+				</div>
+
+				<div class="modal-footer">
+					 <button type="button" class="btn btn-default" data-dismiss="modal"> Cancel </button>
+
+					 <button type="button" class="btn btn-danger"> Delete </button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	-->
 	
 
 
