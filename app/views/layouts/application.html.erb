@@ -42,7 +42,7 @@
         <div class="container" >
             <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapseable_navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -50,27 +50,41 @@
                     </button>
                     <a class="navbar-brand" href="#">Library Management System</a>
                 </div>
-                <!-- Initial Search 
-                <div class="col-lg-3 col-md-3 col-sm-3 collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
-                    <input type="text" placeholder="Search" />
+                <!-- Initial Search -->
+                <div class="collapse navbar-collapse" id="collapseable_navigation">
+                    <% if @logged_user.user_role == 'Administrator' %>       
+                            <ul class="nav navbar-nav">
+                                <li>                        
+                                    <%= link_to "Home", home_index_path, class: "glyphicon glyphicon-home" %>
+                                </li>
+                                <li>
+                                    <%= link_to "Add Item", home_add_item_path, class: "glyphicon glyphicon-plus" %>
+                                </li>
+                                <li>
+                                    <%= link_to "Add User", home_add_user_path, class: "glyphicon glyphicon-plus" %>
+                                </li>
+                            </ul> 
+                    <% end %>
                 </div>
-                -->
+
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
 
     <!-- Page Content -->
+
     <div class="container" style="background-color: #ffffff">
         <br>
+        <!-- /.row -->
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3">
             	<div class="dropdown"> <!-- Not finished -->
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="Menu">
                             Logged in as <%= @logged_user.username %> 
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu" aria-labelledby="Menu">
                             <li>
                                 <a href="#">Profile</a>
                             </li>
@@ -87,32 +101,16 @@
             	</div>
             </div>        
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <form class="form-search">
-                    <input type="text" class="form-control input-medium search-query" placeholder="Search" />                    
-                </form>
+                <%= form_tag do %>
+                    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>                    
+                <% end %>
             </div>
         	<div class="col-lg-3 col-md-3 col-sm-3">
         		<p>Date: <%= @date %></p>
-                <span class="glyphicon glyphicon-log-out"></span> <%= link_to "logout", home_logout_path, :confirm => "Are you sure you want to Logout?" %>
+                <span class="glyphicon glyphicon-log-out"></span> <%= link_to "Quick Exit", home_logout_path, class: "btn btn-link" %>
         	</div>        	
         </div>
-        <!-- /.row -->
-        <% if @logged_user.user_role == 'Administrator' %>
-            <nav class="navbar navbar-default">			
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        
-                        <%= link_to "Home", home_index_path, :class => "glyphicon glyphicon-home" %>
-                    </li>
-                    <li>
-                        <%= link_to "Add Item", home_add_item_path, :class => "glyphicon glyphicon-plus" %>
-                    </li>
-                    <li>
-                        <%= link_to "Add User", home_add_user_path, :class => "glyphicon glyphicon-plus" %>
-                    </li>
-                </ul>   				
-            </nav>
-        <% end %>
+        <hr>
         <!-- /.row -->
         <%= yield %>
 

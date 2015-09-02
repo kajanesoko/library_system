@@ -1,22 +1,7 @@
 
 	<div>
-		<!--
-		<div>
-			<ul class="nav nav-tabs">
-				<%# @item_category.each do |item_list| %>
-					<li>
-						<a href="#item_category" data-toggle="tab">
-							<%#= item_list.name %>	
-						</a>
-					</li>
-				<%# end %>
-			</ul>
-		</div>
-		-->
 
 		<!-- Category i -->
-		<div class="tab-content">
-			<div class="tab-pane fade in active" id="item_category">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<!--
@@ -24,12 +9,12 @@
 							Item Table
 						</caption>
 						-->
-						<thead class="bg-info">
+						<thead>
 							<tr>
-								<th> Category</th>
-								<th><span class="glyphicon glyphicon-book"></span> Title</th>
-								<th><span class="glyphicon glyphicon-user"></span> Author</th>
-								<th> Edition</th>
+								<th><span class="glyphicon glyphicon-user"></span> Category</th>
+								<th>Name</th>
+								<th>Author</th>
+								<th>Edition</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -69,7 +54,5 @@
 
 						</tbody>						
 					</table>	
-				</div>
-			</div>
 		</div>
 	</div>

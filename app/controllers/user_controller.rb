@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   def login
-  
+  	@date = Date.today
     if request.post?
     	user = User.where(:username => params[:username]).first
 		
