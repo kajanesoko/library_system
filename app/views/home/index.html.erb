@@ -48,14 +48,19 @@
 
 										<td>
 											<div class="btn-group">
-												<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#void_reason">
-													<span class="glyphicon glyphicon-trash"></span> Delete
-												</button>
+													<%= link_to "Delete", home_index_path, :class => "btn btn-sm btn-primary" %>
 												<button class="btn btn-sm btn-success">
 													<span class="glyphicon glyphicon-edit"></span> Edit
 												</button>
-												<button class="btn btn-sm btn-warning">
-													<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+												<form class="form-inline" role="form" action="/home/borrow">
+													<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
+													<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
+													<button class="btn btn-sm btn-warning" type="submit" onclick="borrow();">
+														<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+													</button>
+												</form>
+												<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
+													<span class="glyphicon glyphicon-eye-open"></span> Preview
 												</button>
 											</div>
 										</td>
@@ -63,18 +68,28 @@
 										<!-- Staff actions to an item -->
 										<td>
 											<div class="btn-group">
-												<button class="btn btn-sm btn-primary">
+												<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
 													<span class="glyphicon glyphicon-eye-open"></span> Preview
 												</button>
-												<button class="btn btn-sm btn-success">
-													<span class="glyphicon glyphicon-edit"></span> Borrow
-												</button>
+												<form class="form" role="form" action="/home/borrow">
+													<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
+													<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
+													<button class="btn btn-sm btn-success" type="submit" onclick="borrow();">
+														<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+													</button>
+												</form>
 												<button class="btn btn-sm btn-warning">
 													<span class="glyphicon glyphicon-calendar"></span> Book
 												</button>
 											</div>
 										</td>
 						      		<% end %>
+								</tr>
+								<tr id="<%= item.item_id %>" style="visibility: collapse; font-style: italic;" class="text-info";>
+									<td colspan="5">
+											<%= item.item_name %>, <%= item.edition %> edition.
+											Published <%= item.year %>. Author: <%= item.author %>. <%= item.description %>
+									</td>
 								</tr>
 							<% end %>
 
@@ -85,6 +100,29 @@
 		</div>
 											
 	</div>
+
+	<script type="text/javascript">
+		function preview (item_id_argument) {
+			// body...
+				previous_viewed_div = document.getElementById("hiddenElement");
+				
+				if(previous_viewed_div.innerHTML.length > 0){
+                	document.getElementById(previous_viewed_div.innerHTML).style.visibility = "collapse";
+
+                }
+
+				document.getElementById(item_id_argument).style.visibility = "inherit";
+
+				previous_viewed_div.innerHTML = item_id_argument;
+		}
+
+		function borrow () {
+			// body...
+			alert("Request to borrow item successfully sent. Await approval.");
+		}
+	</script>
+
+	<div id="hiddenElement" style="visibility: hidden;"></div>
 
 	<!-- Void Reason Modal -->
 <!--

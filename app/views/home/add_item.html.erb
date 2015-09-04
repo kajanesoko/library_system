@@ -4,7 +4,15 @@
 	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
 		<div class="form-group">
 			<%#= label_tag("Item Category") %>
-			<%= select_tag(:item_category_id, options_for_select([['Category',nil],['Books','1'],['CDs/DVDs','2'],['Journals/Magazines','3']]), :class => "form-control") %>	
+			<%= select_tag(:item_category_id, 
+				options_for_select([
+						['Category',nil],
+						[:option_name, :option_value ],
+						['CDs/DVDs','2'],
+						['Journals/Magazines','3']
+					]), 
+					:class => "form-control") 
+			%>	
 		</div>
 		<div class="form-group">
 			<%#= label_tag("Item Name") %>

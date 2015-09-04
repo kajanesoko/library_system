@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'bcrypt-ruby', :require => 'bcrypt' 
+gem 'will_paginate'
 
+gem 'bcrypt-ruby', :require => 'bcrypt'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.2'
 # Use sqlite3 as the database for Active Record

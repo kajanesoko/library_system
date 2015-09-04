@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
       end
     elsif not session[:user_id].blank?
       #User.current = User.where(:user_id => session[:user_id]).first
-      @logged_user = User.find session[:user_id]
+      @logged_user = User.find(session[:user_id])
     end
   end
 

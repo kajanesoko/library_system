@@ -1,10 +1,11 @@
 class HomeController < ApplicationController
+
   def logout
   	session[:user_id] = nil
   	redirect_to :action => 'index'
   end
 
-  public
+public
 
   def index
   	@time = Time.now
@@ -16,7 +17,31 @@ class HomeController < ApplicationController
     end
   end
 
+  def borrow
+    @item = Item.where(:item_id => params[:passed_item_id_to_borrow]).first
+    @item.update_attribute('status', params[:borrow_status]) if !@item.blank?
+    redirect_to '/home/index'
+  end
+
+  def reject
+    @reject_items = Item.where(:item_id => params[:passed_item_id_to_reject]).first
+    @reject_items.update_attribute('status', params[:reject_status]) if !@reject_items.blank?
+    redirect_to '/home/view_item'
+  end
+
+  def approve
+    @approve_items = Item.where(:item_id => params[:passed_item_id_to_approve]).first
+    @approve_items.update_attribute('status', params[:approve_status]) if !@approve_items.blank?
+    redirect_to '/home/view_item'
+  end
+
+private
   def add_item
+    @item_category = ItemCategory.all
+    @item__category.each do |item_category_list|
+      @option_name = item_category_list.name
+      @option_value = item_category_list.item_category_id
+    end
     if request.post?
     	@item = Item.new
       @item.item_name = params[:item_name]
@@ -34,8 +59,14 @@ class HomeController < ApplicationController
     
   end
 
+
+
+public
   def view_item
-      
+    @borrow_requests = Item.all.order(:item_category_id)
+    if request.post?
+      @borrow_requests = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
+    end
   end
 
   def add_user
@@ -44,7 +75,7 @@ class HomeController < ApplicationController
       @user.firstname = params[:firstname]
       @user.lastname = params[:lastname]
       @user.username = params[:username]
-      @user.password_hash = params[:username]
+      @user.password_hash = params[:password]
       @user.user_role = 'staff'
       @user.save
     end
@@ -59,5 +90,7 @@ class HomeController < ApplicationController
       @item_category.save
     end
   end
+
+
 
 end

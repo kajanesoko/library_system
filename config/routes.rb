@@ -20,6 +20,15 @@ Rails.application.routes.draw do
   get 'home/view_item'
   post 'home/view_item'
 
+  get 'home/borrow'
+  post 'home/borrow'
+
+  get 'home/reject'
+  post 'home/reject'
+
+  get 'home/approve'
+  post 'home/approve'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
