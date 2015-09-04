@@ -69,20 +69,21 @@
             	<div class="dropdown"> <!-- Not finished -->
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="Menu">
                             Logged in as <%= @logged_user.username %> 
-                            <span class="caret"></span>
+                            <span class="glyphicon glyphicon-menu-down"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="Menu">
                             <li>
-                                <a href="#">Profile</a>
+                                <a href="/home/index"><span class="glyphicon glyphicon-home"></span> Home</a>
                             </li>
                             <li>
-                                <a href="#">Settings</a>
+                                <a href="/home/profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-logout"></span>
-                                    <%= link_to "logout", home_logout_path, confirm: "Are you sure you want to Logout?" %>
-                                </a>
+                                <a href="#"><span class="glyphicon glyphicon-dashboard"></span> Settings</a>
+                            </li>
+                            <li>
+                                    <span class="glyphicon glyphicon-log-out"> <%= link_to "logout", home_logout_path %></span>
+
                             </li>
                         </ul>       		
             	</div>
@@ -102,8 +103,7 @@
         <% if @logged_user.user_role == 'Administrator' %>
             <nav class="navbar navbar-default">			
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        
+                    <li class="active">                        
                         <%= link_to "Home", home_index_path, :class => "glyphicon glyphicon-home" %>
                     </li>
                     <li>
@@ -115,7 +115,7 @@
                     <li>
                         <%= link_to "Add New Category", home_add_category_path, :class => "glyphicon glyphicon-plus" %>
                     </li>
-                    <li id="view_requests"">
+                    <li id="view_requests" onclick="nav_active_link();">
                         <%= link_to "View Requests", home_view_item_path, :class => "glyphicon glyphicon-plus" %>
                     </li>
                 </ul>   				
@@ -129,6 +129,17 @@
 
     </div>
     <!-- /.container -->
+    <footer class="container" style="background-color: black;">
+        <div class="pull-left">
+            <a href="http://baobabhealth.org/"> &copy; Baobab Health Trust <sub>2015</sub></a>
+        </div>
+    </footer>
+    <script type="text/javascript">
+        function nav_active_link () {
+            // body...  
+            document.getElementById("view_requests").className = "active";
+        }
+    </script>
 
     <!-- jQuery Version 1.11.1 -->
     <%= javascript_include_tag "bootstrap/jquery" %>

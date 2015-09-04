@@ -26,22 +26,19 @@ public
   def reject
     @reject_items = Item.where(:item_id => params[:passed_item_id_to_reject]).first
     @reject_items.update_attribute('status', params[:reject_status]) if !@reject_items.blank?
+    flash[:notice] = "Item Rejected with reasons described."
     redirect_to '/home/view_item'
   end
 
   def approve
     @approve_items = Item.where(:item_id => params[:passed_item_id_to_approve]).first
     @approve_items.update_attribute('status', params[:approve_status]) if !@approve_items.blank?
+    flash[:notice] = "Item Approved"
     redirect_to '/home/view_item'
   end
 
-private
   def add_item
     @item_category = ItemCategory.all
-    @item__category.each do |item_category_list|
-      @option_name = item_category_list.name
-      @option_value = item_category_list.item_category_id
-    end
     if request.post?
     	@item = Item.new
       @item.item_name = params[:item_name]
@@ -59,9 +56,6 @@ private
     
   end
 
-
-
-public
   def view_item
     @borrow_requests = Item.all.order(:item_category_id)
     if request.post?

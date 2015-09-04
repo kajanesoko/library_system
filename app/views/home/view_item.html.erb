@@ -1,9 +1,24 @@
 <div>
-	
-	
+	<!-- Notification for action taken to borrow request. -->
+				<% if flash[:notice] %>
+					<% approve = flash[:notice] %>
+					<% if approve == "Item Approved" %>
+						<div class="bg-success">
+							<h1 class="text-center text-success"><%= flash[:notice] %></h1>
+					<% else %>
+						<div class="bg-danger">
+							<h1 class="text-center text-danger"><%= flash[:notice] %></h1>
+					<% end %>
+							
+						</div>				
+				<% end %>
 	<table class="table table-striped">
 		<caption>
+			<% if @borrow_requests.where(:status => "Borrow Request").empty? %>
+				<p class="text-center bg-primary"> No borrow requests.</p>
+			<% else %>
 			<p class="text-center bg-danger">Items awaiting approval</p>
+			<% end %>
 		</caption>
 		<thead class="bg-info">
 			<tr>
@@ -40,7 +55,9 @@
 						</div>
 					</td>
 				</tr>
+				
 			<% end %>
+
 		</tbody>
 	</table>
 </div>

@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   get 'home/approve'
   post 'home/approve'
 
+  get 'home/profile'
+  post 'home/profile'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
