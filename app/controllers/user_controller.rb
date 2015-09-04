@@ -5,8 +5,7 @@ class UserController < ApplicationController
     	user = User.where(:username => params[:username]).first
 		
 		unless user.blank?
-			if user.password_hash == params[:password]
-			
+			if User.authenticate(params[:username], params[:password]) 			
 			session[:user_id] = user.id
 			redirect_to '/home/index' and return
 			end
