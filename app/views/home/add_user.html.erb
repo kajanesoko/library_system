@@ -14,5 +14,9 @@
 			<%#= label_tag("Edition") %>
 			<%= text_field_tag(:username, nil, :placeholder => "Username", :class => "form-control") %>
 		</div>
+		<div class="form-group">
+			<%#= label_tag("Edition") %>
+			<%= password_field_tag(:password, nil, :placeholder => "Password", :class => "form-control") %>
+		</div>
 		<%= submit_tag("Add User", :class => "btn btn-success") %>
 	<% end %>

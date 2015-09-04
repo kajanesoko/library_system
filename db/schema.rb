@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901140937) do
+ActiveRecord::Schema.define(version: 20150903133459) do
 
   create_table "categories", force: true do |t|
     t.datetime "created_at"
@@ -19,12 +19,13 @@ ActiveRecord::Schema.define(version: 20150901140937) do
   end
 
   create_table "issue", primary_key: "issue_id", force: true do |t|
-    t.integer  "user_id",        null: false
-    t.integer  "item_id",        null: false
-    t.date     "date_of_issue",  null: false
-    t.date     "date_of_return", null: false
+    t.integer  "user_id",                   null: false
+    t.integer  "item_id",                   null: false
+    t.date     "date_of_issue",             null: false
+    t.date     "date_of_return",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",         limit: 45
   end
 
   create_table "item", primary_key: "item_id", force: true do |t|
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150901140937) do
     t.string   "void_reason"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",           default: ""
   end
 
   create_table "item_category", primary_key: "item_category_id", force: true do |t|
@@ -50,13 +52,14 @@ ActiveRecord::Schema.define(version: 20150901140937) do
   end
 
   create_table "user", primary_key: "user_id", force: true do |t|
-    t.string   "username",      null: false
-    t.string   "firstname",     null: false
-    t.string   "lastname",      null: false
-    t.text     "password_hash", null: false
-    t.string   "user_role",     null: false
+    t.string   "username",                 null: false
+    t.string   "firstname",                null: false
+    t.string   "lastname",                 null: false
+    t.text     "password_hash",            null: false
+    t.string   "user_role",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "salt",          limit: 45, null: false
   end
 
 end
