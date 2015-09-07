@@ -53,7 +53,7 @@ public
       #@item.void_reason = params[:void_reason] //for Void Reaon Control.
       @item.save
     end
-    
+
   end
 
   def view_item
@@ -76,12 +76,67 @@ public
   end
 
   def add_category
+
     if request.post?
       @item_category = Category.new
       @item_category.name = params[:name]
       @item_category.cat_description = params[:cat_description]
-      
+
       @item_category.save
+    end
+  end
+  def edit_item
+      @item_category = ItemCategory.all
+      @item = Item.find(params[:id])
+      #raise @item.inspect
+      if request.post?
+        @item = Item.find_by(item_id: params['id'])
+        @item.update_attributes(item_name: params['name'],
+                                item_category_id: params['item_category_id'],
+                                author: params['author'],
+                                publisher: params['publisher'],
+                                year: params['year'],
+                                edition: params['edition'],
+                                description: params['description'],
+                                serial: params['serial'])
+      flash[:notice] = "Message"
+      redirect_to '/home/index'
+      end
+
+  end
+
+  def update
+    if request.post?
+      @item = Item.find_by(item_id: params['id'])
+      @item.update_attributes(item_name: params['name'],
+                              item_category_id: params['item_category_id'],
+                              author: params['author'],
+                              publisher: params['publisher'],
+                              year: params['year'],
+                              edition: params['edition'],
+                              description: params['description'],
+                              serial: params['serial'])
+    redirect_to :action => 'index'
+    else
+      redirect_to :action => 'edit_item'
+      #raise params.inspect
+    end
+  end
+
+  def delete
+    @item = Item.find(params[:id])
+    #raise @item.inspect
+
+  end
+
+  def void
+    if request.post?
+      @item = Item.find_by(item_id: params['id'])
+      @item.update_attributes(void_reason: params['void_reason'], void: "1")
+      redirect_to :action => 'index'
+    else
+      redirect_to :action => 'index'
+      #raise params.inspect
     end
   end
 
