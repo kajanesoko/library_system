@@ -5,5 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'bcrypt'
 
-User.create(username: "admin", password_hash: "admin", user_id: 1, user_role: "Administrator", firstname: "Administrator", lastname: "Administrator" )
+include BCrypt
+
+
+User.create(:username => "admin", :password_hash => "admin", :user_id => 1, 
+	:user_role => "Administrator", :firstname => "Administrator", :lastname => "Administrator")

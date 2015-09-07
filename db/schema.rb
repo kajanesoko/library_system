@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903133458) do
+ActiveRecord::Schema.define(version: 20150907125613) do
+
+  create_table "borrow", primary_key: "borrow_id", force: true do |t|
+    t.integer  "user_id",         null: false
+    t.integer  "item_id",         null: false
+    t.string   "book_type"
+    t.boolean  "approval_status"
+    t.text     "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", force: true do |t|
     t.datetime "created_at"
@@ -46,6 +56,11 @@ ActiveRecord::Schema.define(version: 20150903133458) do
   create_table "item_category", primary_key: "item_category_id", force: true do |t|
     t.string   "name",            null: false
     t.string   "cat_description", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_edits", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

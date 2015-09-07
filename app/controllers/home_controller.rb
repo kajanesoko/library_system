@@ -1,3 +1,5 @@
+
+
 class HomeController < ApplicationController
 
   def logout

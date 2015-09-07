@@ -1,8 +1,10 @@
 
+
 	<div>
 		<% if flash[:notice] %>
 			<%= flash[:notice] %>
 		<% end %>
+
 
 				<div class="table-responsive">
 					<table class="table table-striped">
@@ -34,46 +36,62 @@
 
 
 										<td>
+
 											<div class="btn-group">
 
-												<button class="btn btn-sm btn-danger"  data-target="#void_reason">
-												<span class="glyphicon glyphicon-trash"></span> <%= link_to "Delete", "/delete/#{item.item_id}" %>
-												</button>
 
-
-												<button class="btn btn-sm btn-success">
-								<span class="glyphicon glyphicon-edit"></span> <%= link_to "Edit Item", "/edit_item/#{item.item_id}" %>
-
-												</button>
-												<form class="form-inline" role="form" action="/home/borrow">
-													<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
-													<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
-													<button class="btn btn-sm btn-warning" type="submit" onclick="borrow();">
-														<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+											<div class="row btn-group">
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+													<button class="btn btn-sm btn-danger">
+													<span class="glyphicon glyphicon-trash"></span> <%= link_to "Delete", "/delete/#{item.item_id}" %>
 													</button>
-												</form>
-												<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
-													<span class="glyphicon glyphicon-eye-open"></span> Preview
-												</button>
+												</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+													<button class="btn btn-sm btn-success">
+													<span class="glyphicon glyphicon-edit"></span> <%= link_to "Edit Item", "/edit_item/#{item.item_id}" %>
+
+													</button>
+												</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+													<form class="form-inline" role="form" action="/home/borrow">
+														<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
+														<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
+														<button class="btn btn-sm btn-warning" type="submit" onclick="borrow();">
+															<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+														</button>
+													</form>
+												</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+													<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
+														<span class="glyphicon glyphicon-eye-open"></span> Preview
+
+													</button>
+												</div>
 											</div>
 										</td>
 									<% else %>
 										<!-- Staff actions to an item -->
 										<td>
 											<div class="btn-group">
-												<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
-													<span class="glyphicon glyphicon-eye-open"></span> Preview
-												</button>
-												<form class="form" role="form" action="/home/borrow">
-													<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
-													<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
-													<button class="btn btn-sm btn-success" type="submit" onclick="borrow();">
-														<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+													<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
+														<span class="glyphicon glyphicon-eye-open"></span> Preview
 													</button>
-												</form>
-												<button class="btn btn-sm btn-warning">
-													<span class="glyphicon glyphicon-calendar"></span> Book
-												</button>
+												</div>
+												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+													<form class="form" role="form" action="/home/borrow">
+														<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
+														<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
+														<button class="btn btn-sm btn-success" type="submit" onclick="borrow();">
+															<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
+														</button>
+													</form>
+												</div>
+												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+													<button class="btn btn-sm btn-warning">
+														<span class="glyphicon glyphicon-calendar"></span> Book
+													</button>
+												</div>
 											</div>
 										</td>
 						      		<% end %>
