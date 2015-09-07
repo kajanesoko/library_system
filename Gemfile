@@ -1,8 +1,16 @@
 source 'https://rubygems.org'
 
+# Gen to help with generating a barcode
+gem 'barby'
+		# to use barby atleast have the below dependecies
+			# In the controller, require 'barby', require 'barby/barcode/EAN13', require 'barby/outputter/ascii_outputter', require 'barby/outputter/html_outputter'
+
+# Gem to help with pagination
 gem 'will_paginate'
 
+# Gem to help with BCrypt encryption and decryption
 gem 'bcrypt-ruby', :require => 'bcrypt'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.2'
 # Use sqlite3 as the database for Active Record

@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150907125613) do
 
   create_table "borrow", primary_key: "borrow_id", force: true do |t|
@@ -19,6 +20,13 @@ ActiveRecord::Schema.define(version: 20150907125613) do
     t.string   "book_type"
     t.boolean  "approval_status"
     t.text     "reason"
+
+ActiveRecord::Schema.define(version: 20150907124116) do
+
+  create_table "borrows", force: true do |t|
+    t.string   "name"
+    t.integer  "numberrrr"
+
     t.datetime "created_at"
     t.datetime "updated_at"
   end

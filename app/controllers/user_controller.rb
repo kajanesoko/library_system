@@ -5,7 +5,7 @@ class UserController < ApplicationController
 		
 		unless user.blank?
 			if User.authenticate(params[:username], params[:password]) #this is for encrypted values
-			#if user.password_hash == params[:password] #this is for plain text
+
 			session[:user_id] = user.id
 			redirect_to '/home/index' and return
 			end
