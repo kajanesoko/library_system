@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903133459) do
+ActiveRecord::Schema.define(version: 20150903133458) do
 
   create_table "categories", force: true do |t|
     t.datetime "created_at"
@@ -19,13 +19,12 @@ ActiveRecord::Schema.define(version: 20150903133459) do
   end
 
   create_table "issue", primary_key: "issue_id", force: true do |t|
-    t.integer  "user_id",                   null: false
-    t.integer  "item_id",                   null: false
-    t.date     "date_of_issue",             null: false
-    t.date     "date_of_return",            null: false
+    t.integer  "user_id",        null: false
+    t.integer  "item_id",        null: false
+    t.date     "date_of_issue",  null: false
+    t.date     "date_of_return", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",         limit: 45
   end
 
   create_table "item", primary_key: "item_id", force: true do |t|
@@ -59,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150903133459) do
     t.string   "user_role",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "salt",          limit: 45, null: false
+    t.string   "salt",          limit: 30
   end
 
 end
