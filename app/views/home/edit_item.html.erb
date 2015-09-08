@@ -1,0 +1,108 @@
+<h3 class="page-header"> Edit Item</h3>
+<%= form_for(:Item, :url => {:controller => 'home', :action => 'edit_item'}) do %>
+  <div class="form-group">
+    <%= label_tag("Item Category") %>
+
+    <% options = options_for_select(@item_category.map{ |category| [category.name, category.item_category_id] }) %>
+
+    <%= select_tag('item_category_id', options)  %>
+
+  <!--  <#%= select_tag(:item_category_id,
+      options_for_select([
+          ['Category',nil],
+          ['Books',1],
+          ['CDs/DVDs','2'],
+          ['Journals/Magazines','3']
+        ]),
+        :class => "form-control")
+    %> -->
+  </div>
+  <div class="form-group">
+    <%= label_tag("Item Name") %>
+    <%= text_field_tag(:name, @item.item_name, :class => "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag("Author") %>
+    <%= text_field_tag(:author, @item.author, :class => "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag("Publisher") %>
+    <%= text_field_tag(:publisher, @item.publisher, :class => "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag("Year") %>
+    <%= text_field_tag(:year, @item.year, :class => "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag("Edition") %>
+    <%= text_field_tag(:edition, @item.edition, :class => "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag("Description") %>
+    <%= text_field_tag(:description, @item.description, :class => "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag("Serial") %>
+    <%= text_field_tag(:serial, @item.serial, :class => "form-control") %>
+  </div>
+  <input type="hidden" value="<%=@item.item_id%>" name="id">
+
+  <%= submit_tag("Save Changes", :class => "btn btn-success") %>
+<% end %>
+
+<!--
+
+<form method="post" action="/home/edit_item" >
+  <div class="form-group">
+    <%#= label_tag("Item Category") %>
+    <%= select_tag(:item_category_id, options_for_select([['Category',nil],['Books','1'],['CDs/DVDs','2'],['Journals/Magazines','3']]), :class => "form-control") %>
+  </div>
+  <table>
+    <tr>
+      <td>
+  <div class="form-group">
+    <label> Item Name: </label>  </td> <td colspan="2">
+    <input type="text" value="<%=@item.item_name%>" name="name" class="form-control">
+  </div>
+</td>
+<tr>
+   <tr> <td>
+  <div class="form-group">
+    <label> Author: </label> </td> <td colspan="2">
+    <input type="text" value="<%=@item.author%>" name="author" class="form-control">
+  </div>
+</td>
+</tr>
+<tr> <td>
+  <div class="form-group">
+    <label> Publisher: </label> </td> <td colspan="2">
+    <input type="text" value="<%=@item.publisher%>" name="publisher" class="form-control">
+  </div>
+</td>
+</tr>
+<tr> <td>
+  <div class="form-group">
+    <label> Year: </label> </td>
+    <td>
+    <input type="text" value="<%=@item.year%>" name="year" class="form-control">
+  </div></td> </tr>
+<tr> <td>
+  <div class="form-group">
+    <label> Edition: </label> </td> <td>
+    <input type="text" value="<%=@item.edition%>" name="edition" class="form-control">
+  </div> </td> </tr>
+  <tr> <td>
+  <div class="form-group">
+    <label> Description : </label> </td> <td colspan="2">
+    <textarea  name="description" class="form-control"> <%=@item.description%> </textarea>
+  </div> </td> </tr> <tr> <td>
+  <div class="form-group">
+    <label> Serial: </label> </td> <td>
+    <input type="text" value="<%=@item.serial%>" name="serial" class="form-control">
+  </div> </td> </tr>
+<tr> <td>  &nbsp; </td> <td>
+  <input type="hidden" value="<%=@item.item_id%>" name="id">
+  <input type="submit" value="Save Changes" class="btn btn-danger"> </td> </tr>
+</table>
+</form>
+-->

@@ -3,20 +3,26 @@
 	<h2 class="page-header">Fill in the Details to add an Item</h2>
 	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
 		<div class="form-group">
-			<%#= label_tag("Item Category") %>
-			<%= select_tag(:item_category_id, 
+			<%= label_tag("Item Category") %>
+
+<% options = options_for_select(@item_category.map{ |category| [category.name, category.item_category_id] }) %>
+
+<%= select_tag('item_category_id', options) %>
+
+<!--
+			<#%= select_tag(:item_category_id,
 				options_for_select([
 						['Category',nil],
 						['Books',1 ],
 						['CDs/DVDs',2],
 						['Journals/Magazines',3]
-					]), 
-					:class => "form-control") 
-			%>	
+					]),
+					:class => "form-control")
+			%> -->
 		</div>
 		<div class="form-group">
 			<%#= label_tag("Item Name") %>
-			<%= text_field_tag(:item_name, nil, :placeholder => "Item Name", :class => "form-control") %>		
+			<%= text_field_tag(:item_name, nil, :placeholder => "Item Name", :class => "form-control") %>
 		</div>
 		<div class="form-group">
 			<%#= label_tag("Author") %>
@@ -42,7 +48,7 @@
 			<%#= label_tag("Serial") %>
 			<%= text_field_tag(:serial, nil, :placeholder => "Serial", :class => "form-control") %>
 		</div>
-		<!-- To be included in the Delete Action 
+		<!-- To be included in the Delete Action
 		<div class="form-group">
 			<%#= label_tag("Void") %>
 			<%#= text_field_tag(:void, nil, :placeholder => "Void", :class => "form-control") %>
@@ -54,4 +60,3 @@
 		-->
 		<%= submit_tag("Add Item", :class => "btn btn-success") %>
 	<% end %>
-

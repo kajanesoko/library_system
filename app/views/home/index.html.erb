@@ -1,5 +1,11 @@
 
 
+	<div>
+		<% if flash[:notice] %>
+			<%= flash[:notice] %>
+		<% end %>
+
+
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<!--
@@ -30,13 +36,20 @@
 
 
 										<td>
+
+											<div class="btn-group">
+
+
 											<div class="row btn-group">
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-													<%= link_to "Delete", home_index_path, :class => "btn btn-sm btn-primary" %>
+													<button class="btn btn-sm btn-danger">
+													<span class="glyphicon glyphicon-trash"></span> <%= link_to "Delete", "/delete/#{item.item_id}" %>
+													</button>
 												</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 													<button class="btn btn-sm btn-success">
-														<span class="glyphicon glyphicon-edit"></span> Edit
+													<span class="glyphicon glyphicon-edit"></span> <%= link_to "Edit Item", "/edit_item/#{item.item_id}" %>
+
 													</button>
 												</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -46,11 +59,12 @@
 														<button class="btn btn-sm btn-warning" type="submit" onclick="borrow();">
 															<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
 														</button>
-													</form>	
+													</form>
 												</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 													<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
 														<span class="glyphicon glyphicon-eye-open"></span> Preview
+
 													</button>
 												</div>
 											</div>
@@ -90,17 +104,17 @@
 								</tr>
 							<% end %>
 
-						</tbody>						
-					</table>	
+						</tbody>
+					</table>
 				</div>
-											
+
 	</div>
 
 	<script type="text/javascript">
 		function preview (item_id_argument) {
 			// body...
 				previous_viewed_div = document.getElementById("hiddenElement");
-				
+
 				if(previous_viewed_div.innerHTML.length > 0){
                 	document.getElementById(previous_viewed_div.innerHTML).style.visibility = "collapse";
 
@@ -131,7 +145,7 @@
 				</div>
 
 				<div class="modal-body">
-				  <%#= form_tag do %> 
+				  <%#= form_tag do %>
 				  	<%#= text_area_tag :void_reason, params[:void_params], :rows => 4, :cols => 60 %>
 				  <%# end %>
 				  <%#= item.item_category_id %>
@@ -147,7 +161,7 @@
 		</div>
 	</div>
 	-->
-	
+
 
 
 <script type="text/javascript">
