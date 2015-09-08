@@ -17,6 +17,9 @@ public
     if request.post?
       @items = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
     end
+
+    Item.joins('INNER JOIN "item_category" ON "item_category"."item_category_id" = "item"."item_category_id" ')
+
   end
 
   def borrow
@@ -128,7 +131,6 @@ public
   def delete
     @item = Item.find(params[:id])
     #raise @item.inspect
-
   end
 
   def void
@@ -141,7 +143,5 @@ public
       #raise params.inspect
     end
   end
-
-
 
 end
