@@ -77,7 +77,7 @@ public
   end
 
   def view_item
-    @borrow_requests = Borrow.all.where(:reason => nil)
+    @borrow_requests = Borrow.where(:reason => nil, :approval_status => false)
     if request.post?
       @borrow_requests = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
     end
