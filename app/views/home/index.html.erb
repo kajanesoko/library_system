@@ -26,7 +26,7 @@
 							<% @items.where(:void => 0).each do |item| %>
 								<tr>
 
-									<td><%= item.item_category_id %></td>
+									<td><%= item.item_category.name %></td>
 									<td><%= item.item_name %></td>
 									<td><%= item.author %></td>
 									<td><%= item.edition %></td>
@@ -41,14 +41,9 @@
 
 
 											<div class="row btn-group">
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-													<button class="btn btn-sm btn-danger">
-													<span class="glyphicon glyphicon-trash"></span> <%= link_to "Delete", "/delete/#{item.item_id}" %>
-													</button>
-												</div>
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-													<button class="btn btn-sm btn-success">
-													<span class="glyphicon glyphicon-edit"></span> <%= link_to "Edit Item", "/edit_item/#{item.item_id}" %>
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+													<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
+														<span class="glyphicon glyphicon-eye-open"></span> Preview
 
 													</button>
 												</div>
@@ -62,11 +57,19 @@
 													</form>
 												</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-													<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
-														<span class="glyphicon glyphicon-eye-open"></span> Preview
+													<button class="btn btn-sm btn-success">
+													<span class="glyphicon glyphicon-edit"></span> <%= link_to "Edit Item", "/edit_item/#{item.item_id}" %>
 
 													</button>
 												</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+													<button class="btn btn-sm btn-danger">
+													<span class="glyphicon glyphicon-trash"></span> <%= link_to "Delete", "/delete/#{item.item_id}" %>
+													</button>
+												</div>
+												
+												
+												
 											</div>
 										</td>
 									<% else %>
