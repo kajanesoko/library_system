@@ -2,12 +2,33 @@
 
 class HomeController < ApplicationController
 
+  def live_items_search
+    if params[:action_name] == "borrow"
+      @items = Item.limit(100).joins("LEFT JOIN borrow b 
+        ON b.item_id = item.item_id").where("b.approval_status = 0 OR b.approval_status IS NULL
+        AND item_name LIKE '%#{params[:search_str]}%'")
+    elsif params[:action_name] == "request"
+      @items = Item.limit(100).joins("LEFT JOIN borrow b 
+        ON b.item_id = item.item_id").where("b.approval_status = 1
+        AND item_name LIKE '%#{params[:search_str]}%'")
+    end
+    render :text => @items.to_json and return
+  end
+
+  def search
+    if params[:action_name] == "borrow"
+      @items = Item.limit(100).joins("LEFT JOIN borrow b 
+        ON b.item_id = item.item_id").where("b.approval_status = 0 OR b.approval_status IS NULL")
+    elsif params[:action_name] == "request"
+      @items = Item.limit(100).joins("INNER JOIN borrow b 
+        ON b.item_id = item.item_id").where("b.approval_status = 1")
+    end
+  end
+
   def logout
   	session[:user_id] = nil
   	redirect_to :action => 'index'
   end
-
-public
 
   def index
   	@time = Time.now
@@ -20,14 +41,14 @@ public
   end
 
   def borrow
-    @item = Item.where(:item_id => params[:passed_item_id_to_borrow]).first
+    item = Item.where(:item_id => params[:item_id]).first
       
-      @borrow = Borrow.new
-      @borrow.user_id = params[:passed_user_id]
-      @borrow.item_id = params[:passed_item_id_to_borrow]
-   
-      @borrow.save
-    redirect_to '/home/index'
+    borrow = Borrow.find_by_item_id(item.id) || Borrow.new()
+    borrow.user_id = session[:user_id]
+    borrow.item_id = item.item_id
+ 
+    borrow.save
+    redirect_to '/search/borrow'
   end
 
   def reject
