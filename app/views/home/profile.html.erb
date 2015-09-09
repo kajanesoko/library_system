@@ -30,7 +30,7 @@
 			<p class="page-header text-center bg-warning">Notifications & Alerts</p>
 			<!-- Viewing Borrow Pending Approval -->
 			<% @borrow_notification.each do |borrow_notify| %>
-				<% if borrow_notify.approval_status == nil %>
+				<% if borrow_notify.approval_status == false %>
 					<div class="text-success">
 						<%= borrow_notify.item.item_name %>
 						<%= borrow_notify.created_at %>
@@ -39,7 +39,7 @@
 					<br>
 				<% end %>
 
-				<% if borrow_notify.approval_status == false %>
+				<% if borrow_notify.approval_status == true %>
 				<br>
 					<div class="text-danger">
 						<%= borrow_notify.item.item_name %>

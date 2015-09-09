@@ -33,7 +33,7 @@ public
   def reject
     @reject_items = Borrow.where(:item_id => params[:passed_item_id_to_reject]).first
 
-    @reject_items.update_attributes(:approval_status => 0,:reason => 'Contact The Administrator') if !@reject_items.blank?
+    @reject_items.update_attributes(:approval_status => 1,:reason => 'Contact The Administrator') if !@reject_items.blank?
 
     flash[:notice] = "Item Rejected with reasons described."
     redirect_to '/home/view_item'
@@ -77,7 +77,7 @@ public
   end
 
   def view_item
-    @borrow_requests = Borrow.where(:reason => nil, :approval_status => false)
+    @borrow_requests = Borrow.where(:reason => nil)
     if request.post?
       @borrow_requests = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
     end
