@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  #get 'home/search'
+  get 'live_items_search/:search_str/:action_name' => 'home#live_items_search', :as => :live_items_search
+  get 'search/:action_name' => 'home#search', :as => :search
+
+  get '/services' => 'home#services'
+
   get 'home/add_item'
 
   get 'home/logout'
