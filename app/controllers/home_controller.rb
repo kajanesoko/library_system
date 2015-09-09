@@ -24,20 +24,38 @@ public
 
   def borrow
     @item = Item.where(:item_id => params[:passed_item_id_to_borrow]).first
-    @item.update_attribute('status', params[:borrow_status]) if !@item.blank?
+
+      @borrow = Borrow.new
+      @borrow.user_id = params[:passed_user_id]
+      @borrow.item_id = params[:passed_item_id_to_borrow]
+
+      @borrow.save
     redirect_to '/home/index'
   end
 
   def reject
-    @reject_items = Item.where(:item_id => params[:passed_item_id_to_reject]).first
-    @reject_items.update_attribute('status', params[:reject_status]) if !@reject_items.blank?
+    @reject_items = Borrow.where(:item_id => params[:passed_item_id_to_reject]).first
+
+    @reject_items.update_attributes(:approval_status => 0,:reason => 'Contact The Administrator') if !@reject_items.blank?
+
     flash[:notice] = "Item Rejected with reasons described."
     redirect_to '/home/view_item'
   end
 
   def approve
     @approve_items = Item.where(:item_id => params[:passed_item_id_to_approve]).first
-    @approve_items.update_attribute('status', params[:approve_status]) if !@approve_items.blank?
+
+    @issue = Issue.new
+    @issue.user_id = params[:passed_user_id]
+    @issue.item_id = params[:passed_item_id_to_approve]
+    @issue.date_of_issue = Date.today
+    @issue.date_of_return = Date.today + 7.days
+    @issue.save
+
+    Borrow.destroy(params[:passed_borrow_id])
+
+
+    #@approve_items.update_attribute('status', params[:approve_status]) if !@approve_items.blank?
     flash[:notice] = "Item Approved"
     redirect_to '/home/view_item'
   end
@@ -62,7 +80,7 @@ public
   end
 
   def view_item
-    @borrow_requests = Item.all.order(:item_category_id)
+    @borrow_requests = Borrow.where(:reason => nil, :approval_status => false)
     if request.post?
       @borrow_requests = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
     end
@@ -142,6 +160,11 @@ public
       redirect_to :action => 'index'
       #raise params.inspect
     end
+  end
+
+  def profile
+    @borrow_notification = Borrow.all.where(:user_id => session[:user_id])
+    @issue_notification = Issue.all.where(:user_id => session[:user_id])
   end
 
 end

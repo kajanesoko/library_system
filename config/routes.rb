@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   get '/delete/:id' => 'home#delete'
   post '/void/:id' => 'home#void'
 
+  get 'home/profile'
+  post 'home/profile'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

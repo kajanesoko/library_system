@@ -3,6 +3,8 @@ require 'bcrypt'
 class User < ActiveRecord::Base
 	include BCrypt
 	self.table_name = "user"
+	has_many :borrow
+	has_many :issue
 	before_save :encrypt_password
 
 

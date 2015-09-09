@@ -28,19 +28,46 @@
 		<!-- Notifications & Reminders-->
 		<div class="col-lg-8 col-md-8 col-sm-8">
 			<p class="page-header text-center bg-warning">Notifications & Alerts</p>
+			<!-- Viewing Borrow Pending Approval -->
+			<% @borrow_notification.each do |borrow_notify| %>
+				<% if borrow_notify.approval_status == nil %>
+					<div class="text-success">
+						<%= borrow_notify.item.item_name %>
+						<%= borrow_notify.created_at %>
+						Waiting Approval	
+					</div>	
+					<br>
+				<% end %>
+
+				<% if borrow_notify.approval_status == false %>
+				<br>
+					<div class="text-danger">
+						<%= borrow_notify.item.item_name %>
+						<%= borrow_notify.created_at %>
+						Rejected. Reason: <%= borrow_notify.reason %>	
+					</div>	
+					<br>							
+				<% end %>
+			<% end %>
+
+			<!-- Viewing issued items. -->
+			<p class="page-header text-center bg-warning">Books in Basket</p>
+			<div class="bg-success">
+			<% @issue_notification.each do |issue_notify| %>
+				
+					<%= issue_notify.item.item_name %>
+					<%= issue_notify.date_of_issue %>
+					<%= issue_notify.date_of_return %>					
+				
+				<br>
+			<% end %>
+			</div>
 		</div>
 
 		<!-- Fix using Clear Fix -->
 		<!--<div class="clearfix-xs clearfix-sm clearfix-md clearfix-lg"></div>-->
 	</div>
 	<hr>
-
-	<!-- Main Row -->
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
-			Span 12
-		</div>
-	</div>
 </body>
 	
 <style type="text/css">

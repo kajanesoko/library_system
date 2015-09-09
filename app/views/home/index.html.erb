@@ -50,6 +50,7 @@
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 													<form class="form-inline" role="form" action="/home/borrow">
 														<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
+														<input type ="text" value ="<%= session[:user_id] %>" class="hidden" name="passed_user_id">
 														<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
 														<button class="btn btn-sm btn-warning" type="submit" onclick="borrow();">
 															<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
@@ -75,6 +76,7 @@
 									<% else %>
 										<!-- Staff actions to an item -->
 										<td>
+
 											<div class="btn-group">
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 													<button class="btn btn-sm btn-primary" onclick="preview(<%= item.item_id %>);">
@@ -84,7 +86,7 @@
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 													<form class="form" role="form" action="/home/borrow">
 														<input type="text" class="hidden" value="<%= item.item_id %>" name="passed_item_id_to_borrow">
-														<input type="text" class="hidden" value="Borrow Request" name="borrow_status">
+														<input type ="text" value ="<%= session[:user_id] %>" class="hidden" name="passed_user_id">
 														<button class="btn btn-sm btn-success" type="submit" onclick="borrow();">
 															<span class="glyphicon glyphicon-thumbs-up"></span> Borrow
 														</button>
