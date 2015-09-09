@@ -66,27 +66,10 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3">
-            	<div class="dropdown"> <!-- Not finished -->
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="Menu">
+                        <button type="button" class="btn btn-primary">
                             Logged in as <%= @logged_user.username %> 
-                            <span class="glyphicon glyphicon-menu-down"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="Menu">
-                            <li>
-                                <a href="/home/index"><span class="glyphicon glyphicon-home"></span> Home</a>
-                            </li>
-                            <li>
-                                <a href="/home/profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><span class="glyphicon glyphicon-dashboard"></span> Settings</a>
-                            </li>
-                            <li>
-                                    <span class="glyphicon glyphicon-log-out"> <%= link_to "logout", home_logout_path %></span>
-
-                            </li>
-                        </ul>       		
-            	</div>
+                            <span class="glyphicon glyphicon-user"></span>
+                        </button>      		
             </div>        
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <%= form_tag do %>
@@ -95,33 +78,49 @@
             </div>
         	<div class="col-lg-3 col-md-3 col-sm-3">
         		<p>Date: <%= @date %></p>
-                <span class="glyphicon glyphicon-log-out"></span> <%= link_to "Quick Exit", home_logout_path, class: "btn btn-link" %>
+                <a href="/home/logout" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
         	</div>        	
         </div>
-
+        <br>
         <!-- /.row -->
         <% if @logged_user.user_role == 'Administrator' %>
-            <nav class="navbar navbar-default">			
-                <ul class="nav navbar-nav">
-                    <li class="active">                        
-                        <%= link_to "Home", home_index_path, :class => "glyphicon glyphicon-home" %>
-                    </li>
-                    <li>
-                        <%= link_to "Add Item", home_add_item_path, :class => "glyphicon glyphicon-plus" %>
-                    </li>
-                    <li>
-                        <%= link_to "Add User", home_add_user_path, :class => "glyphicon glyphicon-plus" %>
-                    </li>
-                    <li>
-                        <%= link_to "Add New Category", home_add_category_path, :class => "glyphicon glyphicon-plus" %>
+            <nav class="">			
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active"> 
+                        <a href="/home/index"><span class="glyphicon glyphicon-home"></span> Home</a> 
                     </li>
                     <li id="view_requests" onclick="nav_active_link();">
-                        <%= link_to "View Requests", home_view_item_path, :class => "glyphicon glyphicon-plus" %>
+                        <a href="/home/view_item"><span class="glyphicon glyphicon-eye-close"></span> View Requests</a> 
+                    </li>
+                    <li>
+                        <a href="/home/profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                    </li>
+                    <li>
+                        <a href="/home/add_item"><span class="glyphicon glyphicon-plus"></span> Add Item</a>
+                    </li>
+                    <li>
+                        <a href="/home/add_user"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                    </li>
+                    <li>
+                        <a href="/home/add_category"><span class="glyphicon glyphicon-plus"></span> Add New Category</a>
                     </li>
                 </ul>   				
             </nav>
         <% end %>
 
+
+        <% if @logged_user.user_role == 'staff' %>
+                  
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active">  
+                        <a href="/home/index"><span class="glyphicon glyphicon-home"></span> Home</a> 
+                    </li>
+                    <li id="Profile">
+                        <a href="/home/profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                    </li>
+                </ul>                   
+            
+        <% end %>
         <hr>
 
         <!-- /.row -->
@@ -134,18 +133,13 @@
             <a href="http://baobabhealth.org/"> &copy; Baobab Health Trust <sub>2015</sub></a>
         </div>
     </footer>
-    <script type="text/javascript">
-        function nav_active_link () {
-            // body...  
-            document.getElementById("view_requests").className = "active";
-        }
-    </script>
 
     <!-- jQuery Version 1.11.1 -->
     <%= javascript_include_tag "bootstrap/jquery" %>
 
     <!-- Bootstrap Core JavaScript -->
     <%= javascript_include_tag "bootstrap/bootstrap.min" %>
+
 
 </body>
 

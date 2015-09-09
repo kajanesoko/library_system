@@ -1,4 +1,5 @@
-
+<body>
+	<!-- Top Row -->
 	<div class="row">
 		<!-- User Details -->
 		
@@ -6,17 +7,20 @@
 			<p class="page-header text-center bg-info">User Details</p>
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<span class="glyphicon glyphicon-log-in"></span> Login Name(username): <%= @logged_user.username %>
+					<span class="glyphicon glyphicon-log-in"></span> Login Name(username): <strong><%= @logged_user.username %></strong>
+					<hr>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<span class="glyphicon glyphicon-user"></span> Name: <%= @logged_user.lastname %>, <%= @logged_user.firstname %>
+					<span class="glyphicon glyphicon-user"></span> Name: <strong><%= @logged_user.lastname %>, <%= @logged_user.firstname %></strong>
+					<hr>
 				</div>	
 			</div>
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<span class="glyphicon glyphicon-flash"></span> Privilege Level: <span class="badge"> <%= @logged_user.user_role %> </span>
+					<span class="glyphicon glyphicon-flash"></span> Privilege Level: <span class="badge"><strong> <%= @logged_user.user_role %></strong> </span>
+					<hr>
 				</div>	
 			</div>			
 		</div>
@@ -24,16 +28,47 @@
 		<!-- Notifications & Reminders-->
 		<div class="col-lg-8 col-md-8 col-sm-8">
 			<p class="page-header text-center bg-warning">Notifications & Alerts</p>
+			<!-- Viewing Borrow Pending Approval -->
+			<% @borrow_notification.each do |borrow_notify| %>
+				<% if borrow_notify.approval_status == nil %>
+					<div class="text-success">
+						<%= borrow_notify.item.item_name %>
+						<%= borrow_notify.created_at %>
+						Waiting Approval	
+					</div>	
+					<br>
+				<% end %>
+
+				<% if borrow_notify.approval_status == false %>
+				<br>
+					<div class="text-danger">
+						<%= borrow_notify.item.item_name %>
+						<%= borrow_notify.created_at %>
+						Rejected. Reason: <%= borrow_notify.reason %>	
+					</div>	
+					<br>							
+				<% end %>
+			<% end %>
+
+			<!-- Viewing issued items. -->
+			<p class="page-header text-center bg-warning">Books in Basket</p>
+			<div class="bg-success">
+			<% @issue_notification.each do |issue_notify| %>
+				
+					<%= issue_notify.item.item_name %>
+					<%= issue_notify.date_of_issue %>
+					<%= issue_notify.date_of_return %>					
+				
+				<br>
+			<% end %>
+			</div>
 		</div>
 
 		<!-- Fix using Clear Fix -->
 		<!--<div class="clearfix-xs clearfix-sm clearfix-md clearfix-lg"></div>-->
 	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
-			Span 12
-		</div>
-	</div>
+	<hr>
+</body>
 	
 <style type="text/css">
 	#profile_border {

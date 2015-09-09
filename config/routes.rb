@@ -32,6 +32,16 @@ Rails.application.routes.draw do
   get 'home/profile'
   post 'home/profile'
 
+  get '/edit_item/:id' => 'home#edit_item'
+  post '/edit_item/:id' => 'home#edit_item'
+
+  get '/delete/:id' => 'home#delete'
+  post '/void/:id' => 'home#void'
+
+  get 'home/profile'
+  post 'home/profile'
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
