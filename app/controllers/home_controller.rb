@@ -9,7 +9,7 @@ class HomeController < ApplicationController
         AND item_name LIKE '%#{params[:search_str]}%'")
     elsif params[:action_name] == "request"
       @items = Item.limit(100).joins("LEFT JOIN borrow b 
-        ON b.item_id = item.item_id").where("b.approval_status = 1
+        ON b.item_id = item.item_id").where("b.approval_status = 0
         AND item_name LIKE '%#{params[:search_str]}%'")
     end
     render :text => @items.to_json and return
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
         ON b.item_id = item.item_id").where("b.approval_status = 0 OR b.approval_status IS NULL")
     elsif params[:action_name] == "request"
       @items = Item.limit(100).joins("INNER JOIN borrow b 
-        ON b.item_id = item.item_id").where("b.approval_status = 1")
+        ON b.item_id = item.item_id").where("b.approval_status = 0")
     end
   end
 
@@ -52,30 +52,30 @@ class HomeController < ApplicationController
   end
 
   def reject
-    @reject_items = Borrow.where(:item_id => params[:passed_item_id_to_reject]).first
 
-    @reject_items.update_attributes(:approval_status => 1,:reason => 'Contact The Administrator') if !@reject_items.blank?
-
+    Borrow.where(item_id: params[:item_id]).update_all(approval_status: 1,
+      reason: 'Contact The Administrator')
     flash[:notice] = "Item Rejected with reasons described."
-    redirect_to '/home/view_item'
+    redirect_to '/search/request'
   end
 
   def approve
-    @approve_items = Item.where(:item_id => params[:passed_item_id_to_approve]).first
+    item = Item.where(:item_id => params[:item_id]).first
 
     @issue = Issue.new
-    @issue.user_id = params[:passed_user_id]
-    @issue.item_id = params[:passed_item_id_to_approve]
+    @issue.user_id = session[:user_id]
+    @issue.item_id = item.item_id
     @issue.date_of_issue = Date.today
     @issue.date_of_return = Date.today + 7.days
     @issue.save
 
-    Borrow.destroy(params[:passed_borrow_id])
+
+    Borrow.find_by_item_id(params[:item_id]).destroy
     
 
     #@approve_items.update_attribute('status', params[:approve_status]) if !@approve_items.blank?
     flash[:notice] = "Item Approved"
-    redirect_to '/home/view_item'
+    redirect_to '/search/request'
   end
 
   def add_item

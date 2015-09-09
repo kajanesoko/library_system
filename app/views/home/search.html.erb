@@ -21,7 +21,7 @@
     <th id="th3" style="">Author</th>                            
     <th id="th4" style="">Edition</th>                          
     <th id="th5" style="">Serial-Number</th>                          
-    <th id="th6" style="">&nbsp;</th>                                  
+    <th id="th6" style="width:250px;">&nbsp; </th>                                  
   </tr>                                                                         
   </thead>                                                                      
   <tbody id='results'> 
@@ -121,11 +121,11 @@ function addRows(data) {
 
 
   function reject(item_id) {
-    alert(item_id)
+    document.location = "/home/reject?item_id=" + item_id 
   }
 
   function approve(item_id) {
-    alert(item_id)
+    document.location = "/home/approve?item_id=" + item_id
   }
 
 
