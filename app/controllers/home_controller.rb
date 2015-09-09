@@ -10,8 +10,6 @@ class HomeController < ApplicationController
 public
 
   def index
-  	@time = Time.now
-  	@date = Date.today
     @items = Item.all.order(:item_category_id)
     @item_category = ItemCategory.all
     if request.post?
@@ -77,7 +75,7 @@ public
   end
 
   def view_item
-    @borrow_requests = Borrow.where(:reason => nil, :approval_status => false)
+    @borrow_requests = Borrow.where(:reason => nil)
     if request.post?
       @borrow_requests = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
     end
