@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Library System</title>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  	<%= csrf_meta_tags %>
+    <!-- Bootstrap Core CSS -->
+    <%= stylesheet_link_tag "bootstrap/bootstrap.min" %>
+
+    <!-- Custom CSS -->
+    <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body background="../../../assets/brownbg.jpg" style="background-repeat: no-repeat; background-attachment: fixed">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container" >
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapseable_navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" style="font-family: algerian;"> Library Management System </a>
+                </div>
+                <!-- Initial Search -->
+                <div class="collapse navbar-collapse" id="collapseable_navigation">
+                   
+                </div>
+
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+
+    <div class="container" style="background-color: #ffffff">
+        <br>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                        <button type="button" class="btn btn-primary">
+                            Logged in as <%= @logged_user.username %> 
+                            <span class="glyphicon glyphicon-user"></span>
+                        </button>      		
+            </div>        
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <%= form_tag do %>
+                    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by title" %>                    
+                <% end %>
+            </div>
+        	<div class="col-lg-3 col-md-3 col-sm-3">
+        		<p>Date: <%= @date %></p>
+                <a href="/home/logout" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+        	</div>        	
+        </div>
+        <br>
+        <!-- /.row -->
+        <% if @logged_user.user_role == 'Administrator' %>
+            <nav class="">			
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active"> 
+                        <a href="/home/index"><span class="glyphicon glyphicon-home"></span> Home</a> 
+                    </li>
+                    <li id="view_requests" onclick="nav_active_link();">
+                        <a href="/home/view_item"><span class="glyphicon glyphicon-eye-close"></span> View Requests</a> 
+                    </li>
+                    <li>
+                        <a href="/home/profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                    </li>
+                    <li>
+                        <a href="/home/add_item"><span class="glyphicon glyphicon-plus"></span> Add Item</a>
+                    </li>
+                    <li>
+                        <a href="/home/add_user"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                    </li>
+                    <li>
+                        <a href="/home/add_category"><span class="glyphicon glyphicon-plus"></span> Add New Category</a>
+                    </li>
+                </ul>   				
+            </nav>
+        <% end %>
+
+
+        <% if @logged_user.user_role == 'staff' %>
+                  
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active">  
+                        <a href="/home/index"><span class="glyphicon glyphicon-home"></span> Home</a> 
+                    </li>
+                    <li id="Profile">
+                        <a href="/home/profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                    </li>
+                </ul>                   
+            
+        <% end %>
+        <hr>
+
+        <!-- /.row -->
+        <%= yield %>
+
+    </div>
+    <!-- /.container -->
+    <footer class="container" style="background-color: black;">
+        <div class="pull-left">
+            <a href="http://baobabhealth.org/"> &copy; Baobab Health Trust <sub>2015</sub></a>
+        </div>
+    </footer>
+
+    <!-- jQuery Version 1.11.1 -->
+    <%= javascript_include_tag "bootstrap/jquery" %>
+
+    <!-- Bootstrap Core JavaScript -->
+    <%= javascript_include_tag "bootstrap/bootstrap.min" %>
+
+
+</body>
+
+</html>
+
