@@ -17,9 +17,9 @@
   	}
 </style>
 <div class="row">
-	<form class="form">
+	<form class="form" action="/search/barcode">
 		<div class="input-group">
-			<input type="text" name="search" placeholder="Search" class="form-control" /> 
+			<input id ="search_item" type="text" name="search_item" placeholder="Search" class="form-control" /> 
 			<span class="input-group-addon btn btn-success"><button>Search</button></span>
 		</div>
 		
@@ -46,3 +46,21 @@
 	</form>
 	<% end %>
 </div>
+<div id = "testdisplay"></div>
+
+<script type="text/javascript">
+	function barcodeSearch () {
+		// body...
+		var barcode = document.getElementById("search_item");
+		if (barcode.value.match(/\$$/)){
+			window.location ="/search/barcode?search_item="+barcode.value.trim().replace(/\$$/,"");
+			document.getElementById("testdisplay").innerHTML = window.location;
+		}
+		else{
+			barcode.focus();
+		}
+	}
+	setInterval(function () {
+		barcodeSearch()}, 1000); 
+	
+</script>

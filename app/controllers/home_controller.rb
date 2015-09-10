@@ -24,6 +24,8 @@ class HomeController < ApplicationController
         ON b.item_id = item.item_id").where("b.approval_status = 0")
     elsif params[:action_name] == "view"
       @items = Item.limit(100).where(:item_category_id => params[:category_id])
+    elsif  params[:action_name] == "barcode"
+      @items = Item.limit(100).where(:serial => params[:search_item].strip)
     end
   end
 
@@ -93,7 +95,7 @@ class HomeController < ApplicationController
       @item.year = params[:year]
       @item.edition = params[:edition]
       @item.description = params[:description]
-      @item.serial = params[:serial]
+      @item.serial = params[:serial].gsub("$","")
       #@item.void = params[:void] //for Void Controls
       #@item.void_reason = params[:void_reason] //for Void Reaon Control.
       @item.save
