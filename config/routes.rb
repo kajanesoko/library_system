@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   #get 'home/search'
   get 'live_items_search/:search_str/:action_name' => 'home#live_items_search', :as => :live_items_search
   get 'search/:action_name' => 'home#search', :as => :search
+  post 'search/:action_name' => 'home#search', :as => :view
 
   get '/services' => 'home#services'
 

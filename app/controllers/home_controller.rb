@@ -22,6 +22,8 @@ class HomeController < ApplicationController
     elsif params[:action_name] == "request"
       @items = Item.limit(100).joins("INNER JOIN borrow b 
         ON b.item_id = item.item_id").where("b.approval_status = 0")
+    elsif params[:action_name] == "view"
+      @items = Item.limit(100).where(:item_category_id => params[:category_id])
     end
   end
 
@@ -31,9 +33,11 @@ class HomeController < ApplicationController
   end
 
   def index
+
   	@time = Time.now
   	@date = Date.today
     @items = Item.all.order(:item_category_id)
+
     @item_category = ItemCategory.all
     if request.post?
       @items = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
