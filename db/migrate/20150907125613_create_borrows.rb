@@ -4,7 +4,7 @@ class CreateBorrows < ActiveRecord::Migration
     	t.integer :user_id,	:null => false
     	t.integer :item_id, :null => false, :unique => true
     	t.string  :book_type, :null => true
-    	t.boolean :approval_status, :default => true
+    	t.boolean :approval_status, :default => false
     	t.text	  :reason, :null => true
       t.timestamps
     end
