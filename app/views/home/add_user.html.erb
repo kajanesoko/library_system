@@ -1,6 +1,6 @@
 
 
-	<h2 class="page-header">Fill in the Details to add a User</h2>
+	<p class="page-header text-center">Fill in the Details to add a User</p>
 	<%= form_for(:user, :url => {:controller => 'home', :action => 'add_user'}) do %>
 		<div class="form-group">
 			<%#= label_tag("Publisher") %>
@@ -20,3 +20,4 @@
 		</div>
 		<%= submit_tag("Add User", :class => "btn btn-success") %>
 	<% end %>
+	<hr>

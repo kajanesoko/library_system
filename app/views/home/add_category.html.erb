@@ -1,6 +1,7 @@
 
 
-	<h2 class="page-header">Fill in the Details to add an Item Category</h2>
+	<p class="page-header text-center">Fill in the Details to add an Item Category</p>
+
 	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_category'}) do %>
 		
 		<div class="form-group">
@@ -25,4 +26,5 @@
 		-->
 		<%= submit_tag("Add Category", :class => "btn btn-success") %>
 	<% end %>
+	<hr>
 

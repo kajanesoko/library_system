@@ -1,11 +1,11 @@
 
 
-	<h2 class="page-header">Fill in the Details to add an Item</h2>
+	<p class="page-header text-center">Fill in the Details to add an Item</p>
 	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
 		<div class="form-group">
-			<%= label_tag("Item Category") %>
+			<%= label_tag "Item Category", nil, :class => "control-label" %>
 			<% options = options_for_select(@item_category.map{ |category| [category.name, category.item_category_id] }) %>
-			<%= select_tag('item_category_id', options) %>
+			<%= select_tag'item_category_id', options, :class => "form-control" %>
 		</div>
 		<div class="form-group">
 			<%#= label_tag("Item Name") %>
@@ -47,3 +47,4 @@
 		-->
 		<%= submit_tag("Add Item", :class => "btn btn-success") %>
 	<% end %>
+	<hr>

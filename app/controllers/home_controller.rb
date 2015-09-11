@@ -22,6 +22,10 @@ class HomeController < ApplicationController
     elsif params[:action_name] == "request"
       @items = Item.limit(100).joins("INNER JOIN borrow b 
         ON b.item_id = item.item_id").where("b.approval_status = 0")
+    elsif params[:action_name] == "view"
+      @items = Item.limit(100).where(:item_category_id => params[:category_id])
+    elsif  params[:action_name] == "barcode"
+      @items = Item.limit(100).where(:serial => params[:search_item].strip)
     end
   end
 
@@ -31,9 +35,8 @@ class HomeController < ApplicationController
   end
 
   def index
-  	@time = Time.now
-  	@date = Date.today
     @items = Item.all.order(:item_category_id)
+
     @item_category = ItemCategory.all
     if request.post?
       @items = Item.all.where("item_name like ?", "%"+params[:search]+"%").order(:item_category_id)
@@ -86,8 +89,7 @@ class HomeController < ApplicationController
 
 
     Borrow.find_by_item_id(params[:item_id]).destroy
-    
-    #@approve_items.update_attribute('status', params[:approve_status]) if !@approve_items.blank?
+
     flash[:notice] = "Item Approved"
     redirect_to '/search/request'
   end
@@ -103,7 +105,7 @@ class HomeController < ApplicationController
       @item.year = params[:year]
       @item.edition = params[:edition]
       @item.description = params[:description]
-      @item.serial = params[:serial]
+      @item.serial = params[:serial].gsub("$","")
       #@item.void = params[:void] //for Void Controls
       #@item.void_reason = params[:void_reason] //for Void Reaon Control.
       @item.save
@@ -143,7 +145,6 @@ class HomeController < ApplicationController
   def edit_item
       @item_category = ItemCategory.all
       @item = Item.find(params[:id])
-      #raise @item.inspect
       if request.post?
         @item = Item.find_by(item_id: params['id'])
         @item.update_attributes(item_name: params['name'],
@@ -174,7 +175,6 @@ class HomeController < ApplicationController
     redirect_to :action => 'index'
     else
       redirect_to :action => 'edit_item'
-      #raise params.inspect
     end
   end
 

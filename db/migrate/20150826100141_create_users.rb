@@ -7,9 +7,9 @@ class CreateUsers < ActiveRecord::Migration
 	t.string:lastname, :null=> false
 	t.text:password_hash, :null=> false
 	t.string:user_role, :null=>false
-  t.string:salt, :null=>false
+	t.string:salt, :null=>false
 
-      t.timestamps
+    t.timestamps
     end
   end
 end

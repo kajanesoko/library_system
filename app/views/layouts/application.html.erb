@@ -40,7 +40,6 @@
     <!-- Navigation -->
     
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -50,36 +49,41 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/"><%= app_name%></a>
-            </div>
+            </div>  
+        <!-- /.row -->			
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+
                     <li>
-                        <a href="#about.html">About</a>
+                        <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
                     </li>
                     <li>
-                        <a href="/services">Services</a>
+                        <a href="/services"><span class="glyphicon glyphicon-dashboard"></span> Services</a>
                     </li>
                     
                     
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-wrench"></span> Settings<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="full-width.html">Full Width Page</a>
+                                <a href="/home/add_category">Add Category</a>
                             </li>
                             <li>
-                                <a href="sidebar.html">Sidebar Page</a>
+                                <a href="/home/add_item">Add Item</a>
                             </li>
                             <li>
-                                <a href="faq.html">FAQ</a>
+                                <a href="/home/add_user">Add User</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/home/profile">Profile</a>
                             </li>
                             <li>
-                                <a href="404.html">404</a>
+                                <a href="/home/logout">Logout</a>
                             </li>
-                            <li>
-                                <a href="pricing.html">Pricing Table</a>
-                            </li>
+                            
                         </ul>
                     </li>
                 </ul>
