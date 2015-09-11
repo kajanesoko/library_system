@@ -1,0 +1,134 @@
+
+<%=javascript_include_tag "DataTables/jquery" %>                          
+<%=javascript_include_tag "DataTables/prototype" %>                          
+<script>jQuery.noConflict();</script>
+<%=javascript_include_tag "DataTables/jquery.dataTables.min" %>
+<%= stylesheet_link_tag "DataTables/demo_table_jui" %>                                     
+
+
+<div class="t1">
+
+  <div class="asset_search_div" style="text-align:right;">
+    <input type="text" name="search" onkeyup = "javascript:searchItems()"
+      placeholder = "Item(s) search" id="search_words" />
+  </div>
+
+  <table id="search_results" class="table table-striped table-bordered table-condensed">
+  <thead>                                                                       
+  <tr id = 'table_head'>                                                        
+    <th id="th1" style="">Category</th>                           
+    <th id="th2" style="">Title</th>                           
+    <th id="th3" style="">Author</th>                            
+    <th id="th4" style="">Edition</th>                          
+    <th id="th5" style="">Serial-Number</th>                          
+    <th id="th6" style="width:250px;">&nbsp; </th>                                  
+  </tr>                                                                         
+  </thead>                                                                      
+  <tbody id='results'> 
+
+  <%(@items || []).each do |item|%>
+    <tr>
+      <td><%=item.item_category.name %></td>
+      <td><%=item.item_name %></td>
+      <td><%=item.author %></td>
+      <td><%=item.edition %></td>
+      <td><%=item.serial %></td>
+      <%if params[:action_name] == 'borrow'%>
+        <td>
+          <button class="btn btn-sm btn-warning" onclick="borrow(<%=item.item_id%>);" type="submit">
+          <span class="glyphicon glyphicon-thumbs-up"></span>Borrow</button>
+        </td>
+      <%elsif params[:action_name] == 'request'%>
+        <td>
+          <button class="btn btn-sm btn-warning" onclick="reject(<%=item.item_id%>);" type="submit">
+          <span class="glyphicon glyphicon-thumbs-down"></span>Reject</button>&nbsp;|&nbsp;
+          <button class="btn btn-sm btn-success" onclick="approve(<%=item.item_id%>);" type="submit">
+          <span class="glyphicon glyphicon-thumbs-up"></span>Approve</button>
+        </td>
+      <%else%>
+        <td><button class="btn btn-sm btn-primary" onclick="preview(3);"></td>
+      <%end%>
+    </tr>
+  <%end%>
+                                                           
+  </tbody>
+  </table>
+
+
+<div>
+
+
+<script>
+
+ var dataTable = null;
+
+ function dataT(){          
+   dataTable = jQuery('#search_results').dataTable();                                                  
+ }
+
+ function borrow(item_id) {
+   document.location = "/home/borrow?item_id=" + item_id
+ }
+
+ function searchItems() {                                                       
+  var search_str = document.getElementById('search_words').value;               
+                                                                              
+  if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari  
+      xmlhttp=new XMLHttpRequest();                                             
+    }else{// code for IE6, IE5                                                  
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");                           
+    }                                                                           
+    xmlhttp.onreadystatechange=function() {                                     
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {                       
+        var results = xmlhttp.responseText;                                     
+        if(results == 'undefined' || results == '' || results == '"not validate"') {                           
+          return;                                                               
+        }else{                                                                  
+          dataTable.fnClearTable();
+          addRows(results);                                                           
+        }                                                                       
+      }                                                                         
+    }
+   
+    xmlhttp.open("GET","/live_items_search/"+search_str+"/<%=params[:action_name]%>" ,true);           
+    xmlhttp.send();      
+  } 
+
+
+
+dataT();
+
+
+function addRows(data) {
+    items = JSON.parse(data);
+    
+    for (var i = 0; i < items.length; i++) {
+      var button = '';
+      item_name = items[i]['item_name'];
+      category = items[i]['author'];
+      author = items[i]["author"];
+      edition = items[i]["edition"];
+      serial = items[i]["serial"];
+      item_id = items[i]["item_id"];
+      <%if params[:action_name] == "borrow"%> 
+      button = '<button class="btn btn-sm btn-warning" onclick="borrow(' + item_id + ');" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span>Borrow</button>';
+      <%elsif params[:action_name] == "request"%> 
+      button = '<button class="btn btn-sm btn-warning" onclick="reject(' + item_id + ');" type="submit"><span class="glyphicon glyphicon-thumbs-down"></span>Reject</button>&nbsp;|&nbsp;<button class="btn btn-sm btn-success" onclick="approve(' + item_id + ');" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span>Approve</button>'
+      <%end%>
+      dataTable.api().row.add([category, item_name, author, edition, serial,button]).draw();
+    }
+  }
+
+
+  function reject(item_id) {
+    document.location = "/home/reject?item_id=" + item_id 
+  }
+
+  function approve(item_id) {
+    document.location = "/home/approve?item_id=" + item_id
+  }
+
+
+</script>
+
+

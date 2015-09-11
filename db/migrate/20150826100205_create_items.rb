@@ -9,7 +9,7 @@ class CreateItems < ActiveRecord::Migration
 	t.string :edition, :null => true
 	t.string :description, :null => true
 	t.string :serial, :null => true
-	t.boolean :void, :null => false, :default => 0
+	t.boolean :void, :null => false, :default => false
 	t.string :void_reason, :null => true 
 
 
