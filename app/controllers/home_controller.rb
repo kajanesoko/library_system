@@ -48,14 +48,6 @@ class HomeController < ApplicationController
 
   def borrow
 
-    @item = Item.where(:item_id => params[:passed_item_id_to_borrow]).first
-
-      @borrow = Borrow.new
-      @borrow.user_id = params[:passed_user_id]
-      @borrow.item_id = params[:passed_item_id_to_borrow]
-
-      @borrow.save
-    redirect_to '/home/index'
     item = Item.where(:item_id => params[:item_id]).first
       
     borrow = Borrow.find_by_item_id(item.id) || Borrow.new()
