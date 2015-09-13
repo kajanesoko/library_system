@@ -1,0 +1,83 @@
+<style type="text/css">
+	a{
+		decoration: none;
+	}
+	.row{
+		margin-top: 1em;
+	}
+	.img-thumbnail{
+    	//border: 1px solid grey;
+    	padding: 10px;
+    	margin: 0.5em;
+  	}
+
+	.img-thumbnail span {
+    font-size: 100px;
+
+	}
+	table.details td{
+		padding: 0.5em;
+		//width: 10em;
+		float: left;
+	}
+
+</style>
+   
+<div>
+	
+			
+	<div class=" row col-lg-6 col-md-6 col-sm-6 bg-info img-thumbnail"><h4><%= @item.first.item_name  %></h4>
+		<div class=" col-lg-4 col-md-4 col-sm-4 img-thumbnail">
+			<span class="glyphicon glyphicon-calendar"></span>
+		</div>
+		<table class="details">
+		<tr><td>Title  :</td><td> <%= @item.first.item_name %></td></tr>
+		<tr><td>Category :</td><td> <%= @item.first.item_category.name %></td></tr>
+		<tr><td>Author :</td><td><%= @item.first.author  %></td></tr>
+		<tr><td>Publisher :</td><td><%= @item.first.publisher  %></td></tr>
+		<tr><td>Year : </td><td><%= @item.first.year  %></td></tr>
+		<tr><td>Edition :</td><td><%= @item.first.edition  %></td></tr>
+		</table>
+		<hr>
+		<div class="pull-left">
+		<h5>Description :</h5>
+		<p><%= @item.first.description %></p>
+		<% if @available %>
+			<div class="bg-success">Available</div>
+		<%else %>
+			<div class="bg-danger"><p class="text-danger"><%=@item.first.item_category.name %> Unvailable </p></div>
+		<%end %>
+		</div>
+	</div>
+	<div class="row col-lg-offset-1 col-lg-5 col-md-5 col-sm-5 "><h4>Select Users</h4>
+	<form class="form" action="/home/approve/">
+		<div class="input-group">
+			<input type="hidden" name="page" value="detail">
+			<input type="hidden" name="item_id" value="<%= @item.first.item_id %>">
+			<select  type="text" name="user_id" placeholder="Name Of User" class="form-control" />
+				<% @users.each do |user| %>
+				<option value='<%= user.user_id %>'><%= user.firstname%> <%= user.lastname%></option>
+				<% end %>
+			</select>
+			<span class="input-group-addon"><button>Assign</button></span>
+		</div>
+		
+	</form>
+	<!-- Notification for action taken to borrow request. -->
+	<div>
+		<% if flash[:notice] %>
+					<% approve = flash[:notice] %>
+					<% if approve == "Item Approved" %>
+						<div class="bg-success">
+							<h3 class="text-center text-success"><%= flash[:notice] %></h3><br/>
+							<%= params[:user_id] %>
+					<% else %>
+						<div class="bg-danger">
+							<h3 class="text-center text-danger"><%= flash[:notice] %></h3>
+					<% end %>
+							
+						</div>				
+				<% end %>
+	</div>
+	</div>
+</div>

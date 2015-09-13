@@ -25,7 +25,22 @@ class HomeController < ApplicationController
     elsif params[:action_name] == "view"
       @items = Item.limit(100).where(:item_category_id => params[:category_id])
     elsif  params[:action_name] == "barcode"
-      @items = Item.limit(100).where(:serial => params[:search_item].strip)
+      @item = Item.limit(1).where(:serial => params[:search_item].strip)
+      @users = User.all
+      @available = true;
+      if Borrow.find_by_item_id(@item.first.item_id) != nil || Issue.find_by_item_id(@item.first.item_id) != nil
+        @available = false;
+      end
+      render(:template =>'home/item_details')
+    elsif params[:action_name] =="detail"
+      #raise params.inspect
+      @item = Item.limit(1).where(:item_id => params[:item_id])
+      @users = User.all
+      @available = true;
+      if Borrow.find_by_item_id(@item.first.item_id) != nil || Issue.find_by_item_id(@item.first.item_id) != nil
+        @available = false;
+      end
+      render(:template =>'home/item_details')
     end
   end
 
@@ -50,12 +65,12 @@ class HomeController < ApplicationController
 
     @item = Item.where(:item_id => params[:passed_item_id_to_borrow]).first
 
-      @borrow = Borrow.new
-      @borrow.user_id = params[:passed_user_id]
-      @borrow.item_id = params[:passed_item_id_to_borrow]
+      #@borrow = Borrow.new
+     # @borrow.user_id = params[:passed_user_id]
+      #@borrow.item_id = params[:passed_item_id_to_borrow]
 
-      @borrow.save
-    redirect_to '/home/index'
+     # @borrow.save
+    #redirect_to '/home/index'
     item = Item.where(:item_id => params[:item_id]).first
       
     borrow = Borrow.find_by_item_id(item.id) || Borrow.new()
@@ -76,22 +91,32 @@ class HomeController < ApplicationController
   end
 
   def approve
-    item = Item.where(:item_id => params[:item_id]).first
+      item = Item.where(:item_id => params[:item_id]).first
+      @issue = Issue.new
+      @issue.user_id = params[:user_id]
+      @issue.item_id = item.item_id
+      @issue.date_of_issue = Date.today
+      @issue.date_of_return = Date.today + 7.days
 
-    @issue = Issue.new
-    @issue.user_id = session[:user_id]
-    @issue.item_id = item.item_id
-    @issue.date_of_issue = Date.today
-    @issue.date_of_return = Date.today + 7.days
-    @issue.save
-
-    Borrow.destroy(params[:passed_borrow_id])
-
-
-    Borrow.find_by_item_id(params[:item_id]).destroy
-
-    flash[:notice] = "Item Approved"
-    redirect_to '/search/request'
+      if Issue.find_by_item_id(params[:item_id]) == nil
+        @issue.save
+        flash[:notice] = "Item Approved to"
+      else
+         flash[:notice] = "Item can not be Approved"
+      end
+      #Borrow.destroy(params[:passed_borrow_id])
+      if Borrow.find_by_item_id(params[:item_id]) != nil
+          Borrow.find_by_item_id(params[:item_id]).destroy
+      end
+    
+      #raise params.inspect
+      if params['page'] =="detail"
+          params[:page]=""
+          redirect_to(:controller =>'search',:action => 'detail',:item_id => params[:item_id])
+          #render(:template =>'home/item_details')
+      else
+        redirect_to '/search/request'
+      end
   end
 
   def add_item
