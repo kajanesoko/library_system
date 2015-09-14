@@ -116,7 +116,7 @@ function addRows(data) {
       button = '<button class="btn btn-sm btn-warning" onclick="reject(' + item_id + ');" type="submit"><span class="glyphicon glyphicon-thumbs-down"></span>Reject</button>&nbsp;|&nbsp;<button class="btn btn-sm btn-success" onclick="approve(' + item_id + ');" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span>Approve</button>'
 
       <%elsif params[:action_name] == "added_item"%> 
-      button = '<button class="btn btn-sm btn-warning" onclick="reject(' + item_name + ');" type="submit"><span class="glyphicon glyphicon-thumbs-down"></span>Reject</button>&nbsp;|&nbsp;<button class="btn btn-sm btn-success" onclick="approve(' + item_name + ');" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span>Approve</button>'
+      button = '<button class="btn btn-sm btn-warning" onclick="reject(' + item_id+ ');" type="submit"><span class="glyphicon glyphicon-thumbs-down"></span>Reject</button>&nbsp;|&nbsp;<button class="btn btn-sm btn-success" onclick="approve(' + item_id + ');" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span>Approve</button>'
 
       <%end%>
       dataTable.api().row.add([category, item_name, author, edition, serial,button]).draw();
