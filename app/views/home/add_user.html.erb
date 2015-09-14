@@ -1,23 +1,35 @@
 
 
-	<p class="page-header text-center">Fill in the Details to add a User</p>
-	<%= form_for(:user, :url => {:controller => 'home', :action => 'add_user'}) do %>
+	<p class="page-header text-center"><strong>Fill in the Details to add a User</strong></p>
+	<%= form_for(:user, :url => {:controller => 'home', :action => 'add_user'}, :class => "form-horizontal", :role => "form") do %>
 		<div class="form-group">
-			<%#= label_tag("Publisher") %>
-			<%= text_field_tag(:firstname, nil, :placeholder => "First Name", :class => "form-control") %>
+			<label for="first name" class = "control-label col-lg-2 col-md-2 col-sm-2">First Name:</label>
+			<div class = "col-lg-10 col-md-10 col-sm-10">
+				<%= text_field_tag(:firstname, nil, :placeholder => "First Name", :class => "form-control") %>
+			</div>
 		</div>
 		<div class="form-group">
-			<%#= label_tag("Year") %>
-			<%= text_field_tag(:lastname, nil, :placeholder => "Last Name", :class => "form-control") %>
+			<label for="last name" class = "control-label col-lg-2 col-md-2 col-sm-2">Last Name:</label>
+			<div class = "col-lg-10 col-md-10 col-sm-10">
+				<%= text_field_tag(:lastname, nil, :placeholder => "Last Name", :class => "form-control") %>
+			</div>			
 		</div>
 		<div class="form-group">
-			<%#= label_tag("Edition") %>
-			<%= text_field_tag(:username, nil, :placeholder => "Username", :class => "form-control") %>
+			<label for="username" class = "control-label col-lg-2 col-md-2 col-sm-2">Username:</label>
+			<div class = "col-lg-10 col-md-10 col-sm-10">
+				<%= text_field_tag(:username, nil, :placeholder => "Username", :class => "form-control") %>
+			</div>			
 		</div>
 		<div class="form-group">
-			<%#= label_tag("Edition") %>
-			<%= password_field_tag(:password, nil, :placeholder => "Password", :class => "form-control") %>
+			<label for="password" class = "control-label col-lg-2 col-md-2 col-sm-2">Password:</label>
+			<div class = "col-lg-10 col-md-10 col-sm-10">
+				<%= password_field_tag(:password, nil, :placeholder => "Password", :class => "form-control") %>
+			</div>			
 		</div>
-		<%= submit_tag("Add User", :class => "btn btn-success") %>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-success">Add User</button>
+			</div>
+		</div>	
 	<% end %>
 	<hr>
