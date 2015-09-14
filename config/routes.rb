@@ -48,6 +48,11 @@ Rails.application.routes.draw do
   get 'home/profile'
   post 'home/profile'
 
+  get 'home/item_details'
+  post 'home/item_details'
+
+  get 'search/detail'
+  post 'search/detail'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
