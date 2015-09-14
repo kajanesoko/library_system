@@ -1,50 +1,96 @@
 
+<p class="page-header text-center">  <font size="5"> <b> Fill in the Details to add an Item </b></font></p>
 
-	<p class="page-header text-center">Fill in the Details to add an Item</p>
-	<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
-		<div class="form-group">
-			<%= label_tag "Item Category", nil, :class => "control-label" %>
-			<% options = options_for_select(@item_category.map{ |category| [category.name, category.item_category_id] }) %>
-			<%= select_tag'item_category_id', options, :class => "form-control" %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Item Name") %>
-			<%= text_field_tag(:item_name, nil, :placeholder => "Item Name", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Author") %>
-			<%= text_field_tag(:author, nil, :placeholder => "Author", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Publisher") %>
-			<%= text_field_tag(:publisher, nil, :placeholder => "Publisher", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Year") %>
-			<%= text_field_tag(:year, nil, :placeholder => "Year", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Edition") %>
-			<%= text_field_tag(:edition, nil, :placeholder => "Edition", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Description") %>
-			<%= text_field_tag(:description, nil, :placeholder => "Description", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Serial") %>
-			<%= text_field_tag(:serial, nil, :placeholder => "Serial", :class => "form-control") %>
-		</div>
-		<!-- To be included in the Delete Action
-		<div class="form-group">
-			<%#= label_tag("Void") %>
-			<%#= text_field_tag(:void, nil, :placeholder => "Void", :class => "form-control") %>
-		</div>
-		<div class="form-group">
-			<%#= label_tag("Void Reason") %>
-			<%#= text_area_tag(:void_reason, nil, :placeholder => "Void Reason", :class => "form-control") %>
-		</div>
-		-->
-		<%= submit_tag("Add Item", :class => "btn btn-success") %>
-	<% end %>
-	<hr>
+<style>
+div.block{
+  overflow:hidden;
+}
+div.block label{
+  width:160px;
+  display:block;
+  float:left;
+  text-align:left;
+}
+div.block .input{
+  width:250px;
+  margin-left:4px;
+  float:left;
+}
+
+div.block .button {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  float: left;
+  isplay: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+</style>
+
+<%= form_for(:item, :url => {:controller => 'home', :action => 'add_item'}) do %>
+
+<div class="block">
+  	<label>Item Category</label>
+  	<% options = options_for_select(@item_category.map{ |category| [category.name, category.item_category_id] }) %>
+			<%= select_tag'item_category_id', options, :class => "input" %>
+  
+</div>
+<div class="block">
+  	<label>Item Name </label>
+  	<%= text_field_tag(:item_name, nil, :placeholder => "Item Name", :class => "input") %> 
+</div>
+
+<div class="block">
+	<label> Author</label>
+	<%= text_field_tag(:author, nil, :placeholder => "Author", :class => "input") %>  
+</div>
+
+<div class="block">
+	<label> Publisher </label>
+	<%= text_field_tag(:publisher, nil, :placeholder => "Publisher", :class => "input") %> 
+</div>
+
+<div class="block">
+	<label> Year </label>
+	<%= text_field_tag(:year, nil, :placeholder => "Year", :class => "input") %>
+</div>
+
+<div class="block">
+  	<label>Edition </label>
+  	<%= text_field_tag(:edition, nil, :placeholder => "Edition", :class => "input") %> 
+</div>
+<div class="block">
+  	<label>Item Description </label>
+  	<%= text_area_tag(:description, nil, :class => "input") %>
+</div>
+<div class="block">
+  	<label>Serial </label>
+  	<%= text_field_tag(:serial, nil, :placeholder => "Serial", :class => "input") %> 
+</div>
+
+<hr>
+
+<div class="block">
+  	<label>&nbsp;</label>
+  	<%= submit_tag("Add Item", :class => "button") %> 
+</div>
+
+<% end %>
+<hr>

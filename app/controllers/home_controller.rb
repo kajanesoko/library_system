@@ -22,6 +22,9 @@ class HomeController < ApplicationController
     elsif params[:action_name] == "request"
       @items = Item.limit(100).joins("INNER JOIN borrow b 
         ON b.item_id = item.item_id").where("b.approval_status = 0")
+    elsif params[:action_name] == "added_item"
+      @items = Item.limit(100).joins("INNER JOIN item b 
+        ON b.item_category_id = item.item_category_id").where("item.item_id = item.item_id")
     elsif params[:action_name] == "view"
       @items = Item.limit(100).where(:item_category_id => params[:category_id])
     elsif  params[:action_name] == "barcode"
@@ -108,7 +111,12 @@ class HomeController < ApplicationController
       @item.serial = params[:serial].gsub("$","")
       #@item.void = params[:void] //for Void Controls
       #@item.void_reason = params[:void_reason] //for Void Reaon Control.
-      @item.save
+          if @item.save
+          raise @item.item_id.inspect
+          #raise params.inspect
+          flash[:notice] = "Item successfully added."
+          redirect_to '/search/added_item/:@item.item_id'
+        end
     end
 
   end
