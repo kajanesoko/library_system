@@ -28,10 +28,12 @@ class HomeController < ApplicationController
     elsif  params[:action_name] == "barcode"
       @item = Item.limit(1).where(:serial => params[:search_item].strip)
       @users = User.all
-      @available = true;
+      item_id = @item.first.item_id
+      @available = false;
+      
       #raise params.inspect
-      if Borrow.find_by_item_id(@item.first.item_id) != nil || Issue.find_by_item_id(@item.first.item_id) != nil
-        @available = false;
+      if Borrow.find_by_item_id(@item.first.item_id) == nil && Issue.where(:item_id => item_id,:returned => false).empty?
+        @available = true;
       end
       render(:template =>'home/item_details')
     elsif params[:action_name] =="detail"
@@ -43,7 +45,11 @@ class HomeController < ApplicationController
         @available = false;
       end
       render(:template =>'home/item_details')
+    elsif params[:action_name] == "return"
+       @items = Item.limit(100).joins("LEFT JOIN issue b 
+        ON b.item_id = item.item_id").where("b.returned = 0")
     end
+
   end
 
   def logout
@@ -84,6 +90,16 @@ class HomeController < ApplicationController
 
   end
 
+  def return
+  
+    issue = Issue.where(:item_id => params[:item_id], :returned =>false).first
+    #raise issue.inspect
+    issue.update_attributes(:returned => true)
+    flash[:returned] = "#{issue.item.item_name} successfully Returned"
+    redirect_to '/search/return'
+     
+  end
+
   def reject
 
     Borrow.where(item_id: params[:item_id]).update_all(approval_status: 1,
@@ -107,8 +123,7 @@ class HomeController < ApplicationController
 
       #raise params[:user_id].inspect
 
-      if Issue.find_by_item_id(params[:item_id]) == nil
-        @issue.save
+      if @issue.save
         flash[:notice] = "Item Approved to"
       else
          flash[:notice] = "Item can not be Approved"

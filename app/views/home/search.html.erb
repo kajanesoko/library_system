@@ -7,6 +7,11 @@
 
 
 <div class="t1">
+<div class="text-success">
+    <% if flash[:returned] %>
+          <%= flash[:returned] %>
+    <% end %>
+  </div>
 
   <div class="asset_search_div" style="text-align:right;">
     <input type="text" name="search" onkeyup = "javascript:searchItems()"
@@ -45,6 +50,11 @@
           <button class="btn btn-sm btn-success" onclick="approve(<%=item.item_id%>);" type="submit">
           <span class="glyphicon glyphicon-thumbs-up"></span>Approve</button>
         </td>
+      <% elsif params[:action_name] == 'return'%>
+          <td>
+          <button class="btn btn-sm btn-info" onclick="return_item(<%=item.item_id%>);" type="submit">
+          <span class="glyphicon glyphicon-thumbs-up"></span>Return</button>
+        </td>
       <%else%>
         <td><button class="btn btn-sm btn-primary" onclick="preview(3);"></td>
       <%end%>
@@ -53,7 +63,6 @@
                                                            
   </tbody>
   </table>
-
 
 <div>
 
@@ -130,6 +139,10 @@ function addRows(data) {
 
   function approve(item_id) {
     document.location = "/home/approve?item_id=" + item_id
+  }
+
+   function return_item(item_id) {
+    document.location = "/home/return?item_id=" + item_id
   }
 
 

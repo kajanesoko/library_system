@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   post 'home/add_user'
   get 'home/add_user'
 
+  post 'home/return'
+  get 'home/return'
+
 
   post 'home/add_category'
   get 'home/add_category'
