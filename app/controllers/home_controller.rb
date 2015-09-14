@@ -29,6 +29,7 @@ class HomeController < ApplicationController
       @item = Item.limit(1).where(:serial => params[:search_item].strip)
       @users = User.all
       @available = true;
+      #raise params.inspect
       if Borrow.find_by_item_id(@item.first.item_id) != nil || Issue.find_by_item_id(@item.first.item_id) != nil
         @available = false;
       end
@@ -67,7 +68,7 @@ class HomeController < ApplicationController
     @item = Item.where(:item_id => params[:passed_item_id_to_borrow]).first
 
       #@borrow = Borrow.new
-     # @borrow.user_id = params[:passed_user_id]
+      #@borrow.user_id = params[:passed_user_id]
       #@borrow.item_id = params[:passed_item_id_to_borrow]
 
      # @borrow.save
@@ -94,10 +95,17 @@ class HomeController < ApplicationController
   def approve
       item = Item.where(:item_id => params[:item_id]).first
       @issue = Issue.new
-      @issue.user_id = params[:user_id]
+      if params[:user_id]  == nil
+         @issue.user_id  = Borrow.where(:item_id => params[:item_id]).first.user_id
+   
+      else
+        @issue.user_id = params[:user_id]
+      end
       @issue.item_id = item.item_id
       @issue.date_of_issue = Date.today
       @issue.date_of_return = Date.today + 7.days
+
+      #raise params[:user_id].inspect
 
       if Issue.find_by_item_id(params[:item_id]) == nil
         @issue.save
