@@ -29,20 +29,20 @@ class HomeController < ApplicationController
       @item = Item.limit(1).where(:serial => params[:search_item].strip)
       @users = User.all
       item_id = @item.first.item_id
-      @available = false;
+      @available = false
       
       #raise params.inspect
       if Borrow.find_by_item_id(@item.first.item_id) == nil && Issue.where(:item_id => item_id,:returned => false).empty?
-        @available = true;
+        @available = true
       end
       render(:template =>'home/item_details')
     elsif params[:action_name] =="detail"
       #raise params.inspect
       @item = Item.limit(1).where(:item_id => params[:item_id])
       @users = User.all
-      @available = true;
+      @available = true
       if Borrow.find_by_item_id(@item.first.item_id) != nil || Issue.find_by_item_id(@item.first.item_id) != nil
-        @available = false;
+        @available = false
       end
       render(:template =>'home/item_details')
     elsif params[:action_name] == "return"
